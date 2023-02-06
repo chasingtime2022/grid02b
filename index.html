@@ -4,98 +4,157 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="style.css" rel="stylesheet" />
-    <title>Test</title>
+    <title>Document</title>
     <style>
-      @media (max-width: 600px) {
-        .side {
-          display: none;
-        }
-        .main {
-          flex: 1;
-        }
+      html {
+        background: linear-gradient(to left, rgb(28, 85, 217), white);
       }
+      body {
+        margin: 0;
+        /* padding: 10px; */
+      }
+      * {
+        box-sizing: border-box;
+      }
+      /* * {
+        border: 2px solid green;
+      } */
+      /* .upper,
+      .lower {
+        border: 2px solid blue;
+      } */
+      p {
+        overflow: hidden;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 100px;
+        overflow: hidden;
+      }
+      .header #logo {
+        height: 100%;
+      }
+      .header p {
+        font-size: 30px;
+        margin-right: 20px;
+      }
+      .main {
+        overflow: hidden;
+        height: calc(100vh - 200px);
+        background-color: black;
+        padding: 20px;
+        display: flex;
+      }
+      .footer {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 100px;
+        overflow: hidden;
+      }
+      .footer #code {
+        height: 80%;
+        display: inline-flex;
+      }
+      .footer p {
+        font-size: 20px;
+        font-weight: 100;
+      }
+      .left_col {
+        overflow: hidden;
+        flex: 3;
+
+        /* background-color: aquamarine; */
+      }
+      .left_col p {
+        color: white;
+        font-size: 20px;
+      }
+      .side_col {
+        overflow: hidden;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        /* background-color: rgb(201, 191, 102); */
+      }
+      .upper {
+        text-align: center;
+      }
+      .upper #map {
+        max-width: 1200px;
+        margin: 0 auto 0;
+      }
+
+      .card {
+        overflow: hidden;
+        width: calc(100vw-);
+        height: 300px;
+        margin-bottom: 20px;
+        margin-left: 20px;
+        padding: 10px;
+        background-color: rgb(234, 227, 227);
+      }
+      .card h3 {
+        font-size: 20px;
+      }
+      .card p {
+        font-size: 15px;
+        line-height: 1.5em;
+      }
+
+      .clear {
+        clear: both;
+      }
+      /* @media screen and (max-width: 800px) {
+        .upper {
+          width: 100%;
+        }
+        .side_col {
+          display: none;
+        } */
+      /* .card_2 {
+          width: 100%;
+          padding: 20px;
+        }
+        .card {
+          margin-left: 0;
+        }
+      } */
     </style>
   </head>
-  <body class="flex column">
+  <body>
     <!-- Header -->
-    <div class="header diagonal-gradient">
-      <!-- Logo -->
-      <div class="flex1">
-        <img
-          class="logo"
-          src="satellite/grid.jpg"
-          alt="code"
-          width="50px"
-          height="50px"
-        />
-      </div>
-      <!-- Name -->
-      <div class="flex8">
-        <p class="name">Gamma Ray Integrated Detectors Project</p>
-      </div>
+    <div class="header">
+      <img id="logo" src="satellite/grid.jpg" alt="logo" />
+      <p>Gamma Ray Integrated Detector Project</p>
     </div>
     <!-- Main -->
     <div class="main">
-      <!-- Left -->
-      <div class="left column">
-        <!-- Path -->
-        <div class="path">
-          <img src="satellite/path1.png" alt="path" width="1200px" />
-          <p class="caption">Satellite Path</p>
+      <div class="left_col">
+        <div class="upper">
+          <img id="map" src="satellite/earth.jpg" alt="" />
+          <p>卫星轨迹 Satellite Path</p>
         </div>
-        <!-- Light -->
-        <div class="light">
-          <!-- Curve 1 -->
-          <div class="flex2">
-            <img
-              src="satellite/light.png"
-              alt="curve"
-              width="300px"
-              height="100px"
-            />
-            <p class="caption">Light Curve</p>
-          </div>
-          <!-- Curve Description -->
-          <!-- <div class="flex1">
-            <p class="card2 text">Description:</p>
-          </div> -->
-          <!-- Curve 2 -->
-          <div class="flex2">
-            <img
-              src="satellite/TGF.JPG"
-              alt="curve"
-              width="300px"
-              height="100px"
-            />
-            <p class="caption">TGF Event</p>
-          </div>
-          <!-- Curve Description -->
-          <!-- <div class="flex1">
-            <p class="card2 text">Description:</p>
-          </div> -->
-        </div>
+        <div class="lower"></div>
       </div>
-      <!-- Right -->
-      <div class="side column white">
-        <!-- Status -->
-        <div class="card1 status">
-          <h4>卫星状态/Satellite Status</h4>
-          <p>经度:</p>
-          <p>纬度:</p>
-          <p>高度:</p>
+      <div class="side_col">
+        <div class="card">
+          <h3>卫星状态/Satellite Status</h3>
         </div>
-        <!-- News -->
-        <div class="card1 text">
-          <h4>天格新闻/GRID News</h4>
+        <div class="card">
+          <h3>天格新闻/GRID News</h3>
           <p>
             春节前夕，1月15日11时14分，清华大学天格计划GRID-05B卫星载荷搭载于长光卫星MF02A07星
-            ，由长征二号丁运载火箭从太原卫星发射中心发射升空，成功进入预定轨道，卫星状态良好，发射获得圆满成功。预期这4颗载荷将与此前已发射在轨的多颗天格载荷开展联合观测，对伽马射线暴、太阳活动和脉冲星等进行持续在轨观测与分析。
+            ，由长征二号丁运载火箭从太原卫星发射中心发射升空，
+            成功进入预定轨道，卫星状态良好，发射获得圆满成功。
+            预期这4颗载荷将与此前已发射在轨的多颗天格载荷开展联
+            合观测，对伽马射线暴、太阳活动和脉冲星等进行持续在轨观测与分析。
           </p>
         </div>
-        <!-- Science -->
-        <div class="card1 text" style="margin-bottom: 20px">
-          <h4>天格科普/GRID Science</h4>
+        <div class="card">
+          <h3>天格科普/GRID Science</h3>
           <p>
             伽马射线暴是目前 已知最剧烈的天体物理过程，产生自极端能量密度环境。
             伽马射线暴可能起源于 超新星爆发、中子星并和 等物理过程，与
@@ -106,17 +165,9 @@
     </div>
 
     <!-- Footer -->
-    <div class="footer diagonal-gradient">
-      <!-- Contact -->
-      <div class="contact">
-        <img
-          class="code"
-          src="satellite/wechat.png"
-          alt="code"
-          width="50px"
-          height="50px"
-        />
-      </div>
+    <div class="footer">
+      <p>Welcome join us!</p>
+      <img id="code" src="satellite/wechat.png" alt="wechat" />
     </div>
   </body>
 </html>
