@@ -1,0 +1,165 @@
+/* area setting */
+html {
+  background-color: black;
+}
+body {
+  background-color: white;
+  border-color: white;
+  margin: 0;
+  height: 100%;
+}
+.header {
+  display: flex;
+  height: 100px;
+  background-color: green;
+}
+
+.main {
+  display: flex;
+  background-color: black;
+  justify-content: center;
+}
+.left {
+  width: auto;
+}
+
+.footer {
+  color: white;
+  background-color: green;
+  height: 100px;
+}
+.path {
+  flex: 1;
+}
+.light {
+  display: flex;
+  justify-content: center;
+}
+.curve {
+  flex: 1;
+}
+.description {
+  flex: 1;
+}
+.side {
+  display: flex;
+  width: 500px;
+}
+.status {
+  height: 20%;
+}
+.text {
+  min-height: 150px;
+  height: 40%;
+}
+.contact {
+  height: 80px;
+  padding: 10px;
+}
+/* flex setting */
+.flex {
+  display: flex;
+}
+.flex1 {
+  flex: 1;
+}
+.flex2 {
+  flex: 2;
+}
+.flex3 {
+  flex: 3;
+}
+.flex8 {
+  flex: 8;
+}
+.column {
+  flex-direction: column;
+}
+/* image setting */
+img {
+  display: block;
+  height: 85%;
+  margin: auto;
+}
+img.code {
+  height: 100%;
+  width: auto;
+  float: right;
+  margin-right: 200px;
+}
+img.logo {
+  display: block;
+  height: 90%;
+  width: auto;
+  float: left;
+  margin: 5px 5px;
+}
+/* common */
+.white {
+  color: white;
+}
+.container {
+  column-width: 250px;
+  column-gap: 10px;
+}
+/* * {
+  border: 1px solid white;
+} */
+/* text setting */
+p.caption {
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  margin: auto;
+}
+p.title3 {
+  color: white;
+  font-size: 20px;
+}
+p.text {
+  color: black;
+  font-size: 20px;
+}
+p.name {
+  line-height: 100px;
+  font-size: 45px;
+  color: black;
+  margin: 0;
+  text-align: center;
+  font-weight: bold;
+}
+p.footer {
+  color: white;
+}
+/* effect setting */
+.diagonal-gradient {
+  background: linear-gradient(to left, rgb(0, 68, 128), white);
+}
+.card1 {
+  box-sizing: border-box;
+  border: 1px, solid, green;
+  border-radius: 10px;
+  background-color: rgb(246, 241, 236);
+  margin: 20px 20px 0 20px;
+  padding: 10px;
+  color: black;
+  width: 100%;
+  /* box-shadow: 0 0 2px 0 white, 0 6px 20px 0 #ddd; */
+}
+.card1 h4 {
+  font-size: 20px;
+  margin: 0px;
+}
+.card1 p {
+  line-height: 30px;
+  font-size: 18px;
+}
+.card2 {
+  box-sizing: border-box;
+  background-color: rgb(246, 241, 236);
+  margin: auto;
+  height: 90%;
+  padding: 10px;
+  color: black;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
