@@ -11,7 +11,7 @@
       }
       body {
         margin: 0;
-        background: linear-gradient(to left, rgb(28, 85, 217), white);
+        background: linear-gradient(to right, rgb(28, 85, 217), white);
         overflow: hidden;
       }
       * {
@@ -29,7 +29,9 @@
         height: 100%;
       }
       .header p {
-        font-size: 30px;
+        font-family: "Microsoft YaHei Bold", sans-serif;
+        font-weight: 900;
+        font-size: 40px;
         margin-right: 20px;
       }
       .main {
@@ -73,13 +75,18 @@
       }
       .card {
         flex: 1;
-        background-color: rgba(169, 204, 232, 0.831);
+        background-color: rgb(222, 224, 228);
         margin-bottom: 20px;
         margin-left: 20px;
         padding: 10px;
       }
       .card h3 {
         font-size: 20px;
+        background-color: rgb(41, 126, 146);
+        margin: 0;
+        padding-left: 0;
+        height: 40px;
+        line-height: 40px;
       }
       .card p {
         font-size: 15px;
@@ -93,7 +100,7 @@
       }
       .footer {
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
         align-items: center;
         height: 100px;
         z-index: 3;
@@ -102,8 +109,19 @@
         height: 80%;
         display: inline-flex;
       }
-      .footer p {
+      .footer #slogan {
+        height: 60%;
+        display: inline-flex;
+        align-self: end;
+      }
+      .footer .p20 {
         font-size: 20px;
+        font-weight: 100;
+        flex: 1;
+        text-align: center;
+      }
+      .footer .p30 {
+        font-size: 30px;
         font-weight: 100;
       }
       @media screen and (max-width: 800px) {
@@ -122,8 +140,9 @@
   <body>
     <!-- Header -->
     <div class="header">
-      <img id="logo" src="satellite/grid.jpg" alt="logo" />
-      <p>Gamma Ray Integrated Detector Project</p>
+      <img id="logo" src="satellite/logo.png" alt="logo" />
+      <p>伽马射线暴探测计划</p>
+      <p>Gamma Ray Integrated Detector</p>
     </div>
 
     <div class="main">
@@ -146,7 +165,7 @@
           <div class="event">
             <img
               id="event"
-              src="satellite/TGF.JPG"
+              src="satellite/signals.gif"
               alt=""
               width="800px"
               height="400px"
@@ -183,8 +202,9 @@
 
     <!-- Footer -->
     <div class="footer">
-      <p>Welcome to join us!</p>
+      <p class="p20">Welcome to join us!</p>
       <img id="code" src="satellite/wechat.png" alt="wechat" />
+      <img id="slogan" src="satellite/slogan.png" alt="slogan" />
     </div>
   </body>
 </html>
