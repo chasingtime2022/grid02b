@@ -12,6 +12,7 @@
       body {
         margin: 0;
         background: linear-gradient(to left, rgb(28, 85, 217), white);
+        overflow: hidden;
       }
       * {
         /* border: 2px solid green; */
@@ -22,7 +23,7 @@
         justify-content: space-between;
         align-items: center;
         height: 100px;
-        overflow: hidden;
+        z-index: 3;
       }
       .header #logo {
         height: 100%;
@@ -36,6 +37,7 @@
         display: flex;
         background-color: black;
         padding: 20px;
+        z-index: 1;
       }
       .left p {
         color: white;
@@ -94,7 +96,7 @@
         justify-content: space-evenly;
         align-items: center;
         height: 100px;
-        overflow: hidden;
+        z-index: 3;
       }
       .footer #code {
         height: 80%;
