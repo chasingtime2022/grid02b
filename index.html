@@ -133,17 +133,18 @@
         font-weight: 100;
       }
       @media screen and (max-width: 800px) {
-        .side {
-          display: none;
+        .main {
+          display: block;
+          overflow: scroll;
         }
-        .event {
+        .side {
           width: 100%;
+        }
+        .card {
+          margin-left: 0;
         }
         .header p {
           font-size: 40px;
-        }
-        .footer #slogan {
-          height: 50%;
         }
       }
       #canvas {
