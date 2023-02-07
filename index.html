@@ -123,7 +123,7 @@
         align-self: end;
       }
       .footer .p20 {
-        font-size: 20px;
+        font-size: 30px;
         font-weight: 100;
         flex: 1;
         text-align: center;
@@ -146,6 +146,11 @@
           display: none;
         }
       }
+      #canvas {
+        background: url(satellite/earth.jpg);
+        background-repeat: no-repeat;
+        background-size: contain;
+      }
     </style>
   </head>
   <body>
@@ -158,7 +163,7 @@
     <div class="main">
       <div class="left">
         <div class="upper">
-          <img id="map" src="satellite/earth.jpg" alt="" />
+          <canvas id="canvas" width="1200" height="600"></canvas>
           <p>卫星轨迹 Satellite Path</p>
         </div>
         <div class="lower">
@@ -180,14 +185,17 @@
               width="800px"
               height="400px"
             />
-            <p>TFG事件</p>
+            <p>引力波</p>
           </div>
         </div>
       </div>
       <div class="side">
         <div class="card">
           <h3>卫星状态/Satellite Status</h3>
-          <button onclick="alert('Welcome')">Click</button>
+          <p>经度:</p>
+          <p>维度:</p>
+          <p>高度:</p>
+          <p>温度:</p>
         </div>
         <div class="card">
           <h3>天格新闻/GRID News</h3>
@@ -216,5 +224,6 @@
       <img id="code" src="satellite/wechat.png" alt="wechat" />
       <img id="slogan" src="satellite/slogan.png" alt="slogan" />
     </div>
+    <script src="main.js"></script>
   </body>
 </html>
