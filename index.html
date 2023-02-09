@@ -4,26 +4,35 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>THU GRID</title>
+    <title>Satellite Orbit</title>
+    <!-- <link type="text/css" rel="stylesheet" href="main.css" /> -->
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "../build/three.module.js",
+          "three/addons/": "./jsm/"
+        }
+      }
+    </script>
+
     <style>
-      html {
-        background: linear-gradient(to left, rgb(28, 85, 217), white);
-      }
+      /* * {
+        border: 2px solid red;
+      } */
       body {
-        margin: 0;
         background: linear-gradient(to right, rgb(28, 85, 217), white);
-        overflow: hidden;
-      }
-      * {
-        /* border: 2px solid green; */
-        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        display: flex;
+        flex-direction: column;
       }
       .header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         height: 100px;
-        z-index: 3;
       }
       .header #logo {
         height: 100%;
@@ -35,85 +44,43 @@
         margin: auto;
       }
       .main {
-        height: calc(100vh - 200px);
         display: flex;
-        background-color: black;
-        padding: 20px;
-        z-index: 1;
-      }
-      .left p {
-        color: white;
-        font-size: 16px;
-      }
-      .left {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-      }
-      .side {
-        display: flex;
-        flex-direction: column;
-        width: 400px;
-      }
-      .upper {
-        flex: 1;
-        text-align: center;
-        /* max-height: 60%;
-        max-width: 100%; */
-      }
-      #canvas {
-        max-width: 100%;
-        max-height: 100%;
-        /* min-height: 400px; */
-      }
-      #three {
+        position: fixed;
+        top: 100px;
+        right: 0px;
+        height: 100%;
         width: 100%;
+        background-color: black;
       }
-      #event {
-        width: 80%;
-        height: auto;
-        max-width: 350px;
-      }
-      .lower {
-        display: flex;
-        flex: 1;
-        text-align: center;
-        align-items: end;
+      #orbit {
+        position: absolute;
+        top: 100px;
+        left: 0px;
       }
       .card {
-        flex: 1;
-        background-color: rgb(222, 224, 228);
-        margin-bottom: 20px;
-        margin-left: 20px;
+        position: absolute;
+        top: 200px;
+        right: 80px;
+        width: 400px;
+        height: 200%;
+        color: black;
+        border-radius: 10px;
+        background-color: rgb(178, 189, 211);
+        /* margin-bottom: 20px;
+        margin-left: 20px; */
         padding: 10px;
+        z-index: 3;
       }
-      .card h3 {
-        font-size: 20px;
-        background: linear-gradient(
-          to left,
-          rgb(28, 85, 217),
-          rgb(219, 208, 208)
-        );
-        padding-left: 0;
-        height: 40px;
-        line-height: 40px;
-      }
-      .card p {
-        font-size: 15px;
-        line-height: 1.5em;
-      }
-      .event {
-        flex: 1;
-      }
-      .header {
-        height: 100px;
+      .card_text {
+        font-size: 30px;
       }
       .footer {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        position: fixed;
+        width: 100%;
         height: 100px;
-        z-index: 3;
+        align-items: center;
+        bottom: 0;
         background: linear-gradient(to left, rgb(28, 85, 217), white);
       }
       .footer #code {
@@ -121,49 +88,24 @@
         display: inline-flex;
       }
       .footer #slogan {
-        height: 40%;
+        height: 60%;
         display: inline-flex;
         align-self: end;
       }
       .footer .p20 {
-        font-size: 20px;
+        font-size: 25px;
         font-weight: 100;
         flex: 1;
         text-align: center;
       }
-      .footer .p30 {
-        font-size: 30px;
-        font-weight: 100;
-      }
       @media screen and (max-width: 800px) {
-        .main {
-          display: block;
-          overflow: scroll;
-        }
-        .lower {
-          display: block;
-        }
-        .event {
-          height: 300px;
-        }
-        .side {
-          width: 100%;
+        .body {
+          overflow: hidden;
         }
         .card {
-          margin-left: 0;
+          width: 20%;
+          height: 100%;
         }
-        .header p {
-          font-size: 40px;
-        }
-        #three {
-          width: 100%;
-        }
-      }
-      /* #canvas {
-        background: url(satellite/earth.jpg);
-        background-repeat: no-repeat;
-        background-size: contain;
-      } */
     </style>
   </head>
   <body>
@@ -172,72 +114,19 @@
       <img id="logo" src="satellite/logo.png" alt="logo" />
       <p>伽马射线暴探测计划</p>
     </div>
+    <div class="main"></div>
+    <canvas id="orbit">
+      <script type="module" src="orbit.js"></script>
+    </canvas>
 
-    <div class="main">
-      <div class="left">
-        <div class="upper">
-          <iframe id="three" src="./orbit/index.html" height="600px" width="1600">
-          </iframe>
-          <p>卫星轨迹 Satellite Path</p>
-        </div>
-        <div class="lower">
-          <div class="event">
-            <img
-              id="event"
-              src="satellite/light1.png"
-              alt=""
-              width="800px"
-              height="400px"
-            />
-            <p>光变曲线</p>
-          </div>
-          <div class="event">
-            <img
-              id="event"
-              src="satellite/signals.gif"
-              alt=""
-              width="800px"
-              height="400px"
-            />
-            <p>引力波</p>
-          </div>
-        </div>
-      </div>
-      <div class="side">
-        <div class="card">
-          <h3>卫星状态/Satellite Status</h3>
-          <p>经度:</p>
-          <p>维度:</p>
-          <p>高度:</p>
-          <p>温度:</p>
-        </div>
-        <div class="card">
-          <h3>天格新闻/GRID News</h3>
-          <p>
-            春节前夕，1月15日11时14分，清华大学天格计划GRID-05B卫星载荷搭载于长光卫星MF02A07星
-            ，由长征二号丁运载火箭从太原卫星发射中心发射升空，
-            成功进入预定轨道，卫星状态良好，发射获得圆满成功。
-            预期这4颗载荷将与此前已发射在轨的多颗天格载荷开展联
-            合观测，对伽马射线暴、太阳活动和脉冲星等进行持续在轨观测与分析。
-          </p>
-        </div>
-        <div class="card">
-          <h3>天格科普/GRID Science</h3>
-          <p>
-            伽马射线暴是目前 已知最剧烈的天体物理过程，产生自极端能量密度环境。
-            伽马射线暴可能起源于 超新星爆发、中子星并和 等物理过程，与
-            热核聚变、引力波 等前沿物理问题相关。
-          </p>
-        </div>
-      </div>
+    <div class="card">
+      <span class="card_text">Hello Cosmos!</span>
     </div>
 
-    <!-- Footer -->
     <div class="footer">
       <p class="p20">Welcome to join us!</p>
       <img id="code" src="satellite/wechat.png" alt="wechat" />
       <img id="slogan" src="satellite/slogan.png" alt="slogan" />
     </div>
-    <!-- <script src="main.js"></script> -->
   </body>
 </html>
