@@ -26,7 +26,7 @@ function init() {
   // 相机
   camera = new THREE.PerspectiveCamera(
     20,
-    window.innerWidth / (window.innerHeight - 200),
+    window.innerWidth / (window.innerHeight - 300),
     1,
     1e7
   );
@@ -60,6 +60,7 @@ function init() {
     normalScale: new THREE.Vector2(0.85, -0.85),
   });
   earth = new THREE.Mesh(earthGeometry, earthMaterial);
+  earth.position.x = -0;
   scene.add(earth);
 
   // 月球
@@ -79,17 +80,16 @@ function init() {
   scene.add(satellite);
 
   // 渲染
-  const canvas = document.querySelector("#orbit");
+  // const canvas = document.querySelector("");
   renderer = new THREE.WebGLRenderer({
     antialias: true,
-    canvas: canvas,
   });
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight - 200);
+  renderer.setSize(window.innerWidth, window.innerHeight - 300);
 
   // 阴影
   renderer.shadowMap.enabled = true;
-  document.body.appendChild(renderer.domElement);
+  document.getElementById("hello").appendChild(renderer.domElement);
 
   // 自动缩放
   window.addEventListener("resize", () => {
@@ -98,11 +98,11 @@ function init() {
     screenSize.height = window.innerHeight;
 
     // Update Camera
-    camera.aspect = screenSize.width / (screenSize.height - 200);
+    camera.aspect = screenSize.width / (screenSize.height - 300);
     camera.updateProjectionMatrix();
 
     // Update Renderer
-    renderer.setSize(screenSize.width, screenSize.height - 200);
+    renderer.setSize(screenSize.width, screenSize.height - 300);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   });
 
@@ -122,11 +122,15 @@ function render() {
   const delta = clock.getDelta();
 
   // 月球
-  moon.position.set(Math.sin(elapsed / 5) * 25, 0, Math.cos(elapsed / 5) * 25);
+  moon.position.set(
+    Math.sin(elapsed / 5) * 25 - 0,
+    0,
+    Math.cos(elapsed / 5) * 25
+  );
 
   // 卫星
   satellite.position.set(
-    Math.sin(elapsed / 3) * 6,
+    Math.sin(elapsed / 3) * 6 - 0,
     Math.cos(elapsed / 3) * 6,
     0
   );
