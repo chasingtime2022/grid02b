@@ -27,7 +27,7 @@ function init() {
   camera = new THREE.PerspectiveCamera(
     20,
     window.innerWidth / (window.innerHeight - 200),
-    50,
+    1,
     1e7
   );
   camera.position.set(0, 0, 70);
