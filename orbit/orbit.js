@@ -79,6 +79,21 @@ function init() {
   // 阴影
   renderer.shadowMap.enabled = true;
   document.body.appendChild(renderer.domElement);
+
+  // 自动缩放
+  window.addEventListener("resize", () => {
+    // Update Sizes
+    screenSize.width = window.innerWidth;
+    screenSize.height = window.innerHeight;
+
+    // Update Camera
+    camera.aspect = screenSize.width / (screenSize.height - 200);
+    camera.updateProjectionMatrix();
+
+    // Update Renderer
+    renderer.setSize(screenSize.width, screenSize.height - 200);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  });
 }
 
 // 动画帧
