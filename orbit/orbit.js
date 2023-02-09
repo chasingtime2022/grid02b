@@ -41,9 +41,9 @@ function init() {
   const earthMaterial = new THREE.MeshPhongMaterial({
     specular: 0x333333,
     shininess: 5,
-    map: textureLoader.load("textures/planets/earth_atmos_2048.jpg"),
-    specularMap: textureLoader.load("textures/planets/earth_specular_2048.jpg"),
-    normalMap: textureLoader.load("textures/planets/earth_normal_2048.jpg"),
+    map: textureLoader.load("./orbit/textures/planets/earth_atmos_2048.jpg"),
+    specularMap: textureLoader.load("./orbit/textures/planets/earth_specular_2048.jpg"),
+    normalMap: textureLoader.load("./orbit/textures/planets/earth_normal_2048.jpg"),
 
     // y scale is negated to compensate for normal map handedness.
     normalScale: new THREE.Vector2(0.85, -0.85),
@@ -54,7 +54,7 @@ function init() {
   // 月球
   const moonGeometry = new THREE.SphereGeometry(moonR);
   const moonMaterial = new THREE.MeshPhongMaterial({
-    map: textureLoader.load("textures/planets/moon_1024.jpg"),
+    map: textureLoader.load("./orbit/textures/planets/moon_1024.jpg"),
   });
   moon = new THREE.Mesh(moonGeometry, moonMaterial);
   scene.add(moon);
@@ -62,7 +62,7 @@ function init() {
   // 卫星
   const satelliteGeometry = new THREE.SphereGeometry(satelliteR);
   const satelliteMaterial = new THREE.MeshPhongMaterial({
-    map: textureLoader.load("textures/planets/moon_1024.jpg"),
+    map: textureLoader.load("./orbit/textures/planets/moon_1024.jpg"),
   });
   satellite = new THREE.Mesh(satelliteGeometry, satelliteMaterial);
   scene.add(satellite);
