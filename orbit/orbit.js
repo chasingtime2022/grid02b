@@ -19,7 +19,7 @@ function init() {
   // 相机
   camera = new THREE.PerspectiveCamera(
     20,
-    (window.innerWidth - 400) / (window.innerHeight - 200),
+    (window.innerWidth ) / (window.innerHeight - 200),
     50,
     1e7
   );
@@ -74,7 +74,7 @@ function init() {
     canvas: canvas,
   });
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth - 400, window.innerHeight - 200);
+  renderer.setSize(window.innerWidth , window.innerHeight - 200);
 
   // 阴影
   renderer.shadowMap.enabled = true;
