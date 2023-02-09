@@ -12,14 +12,21 @@ animate();
 
 // 初始化
 function init() {
-  // 常量
+  // 天体常量
   const earthR = 5;
   const moonR = 0.5;
   const satelliteR = 0.1;
+
+  // 屏幕尺寸
+  const screenSize = {
+    width: window.innerWidth,
+    height: window.innerHeight,
+  };
+
   // 相机
   camera = new THREE.PerspectiveCamera(
     20,
-    (window.innerWidth ) / (window.innerHeight - 200),
+    window.innerWidth / (window.innerHeight - 200),
     50,
     1e7
   );
@@ -42,8 +49,12 @@ function init() {
     specular: 0x333333,
     shininess: 5,
     map: textureLoader.load("./orbit/textures/planets/earth_atmos_2048.jpg"),
-    specularMap: textureLoader.load("./orbit/textures/planets/earth_specular_2048.jpg"),
-    normalMap: textureLoader.load("./orbit/textures/planets/earth_normal_2048.jpg"),
+    specularMap: textureLoader.load(
+      "./orbit/textures/planets/earth_specular_2048.jpg"
+    ),
+    normalMap: textureLoader.load(
+      "./orbit/textures/planets/earth_normal_2048.jpg"
+    ),
 
     // y scale is negated to compensate for normal map handedness.
     normalScale: new THREE.Vector2(0.85, -0.85),
@@ -74,7 +85,7 @@ function init() {
     canvas: canvas,
   });
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth , window.innerHeight - 200);
+  renderer.setSize(window.innerWidth, window.innerHeight - 200);
 
   // 阴影
   renderer.shadowMap.enabled = true;
@@ -93,6 +104,10 @@ function init() {
     // Update Renderer
     renderer.setSize(screenSize.width, screenSize.height - 200);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  });
+
+  window.addEventListener("resize", () => {
+    console.log("window has been resized");
   });
 }
 
