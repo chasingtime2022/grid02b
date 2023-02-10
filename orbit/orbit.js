@@ -18,15 +18,15 @@ function init() {
   const satelliteR = 0.1;
 
   // 屏幕尺寸
-  const screenSize = {
-    width: window.innerWidth,
-    height: window.innerHeight,
+  const divSize = {
+    width: document.getElementById("cosmos").clientWidth,
+    height: document.getElementById("cosmos").clientHeight,
   };
 
   // 相机
   camera = new THREE.PerspectiveCamera(
     20,
-    window.innerWidth / (window.innerHeight - 300),
+    divSize.width / divSize.height,
     1,
     1e7
   );
@@ -85,29 +85,24 @@ function init() {
     antialias: true,
   });
   renderer.setPixelRatio(window.devicePixelRatio);
-  renderer.setSize(window.innerWidth, window.innerHeight - 300);
+  renderer.setSize(divSize.width, divSize.height);
 
   // 阴影
   renderer.shadowMap.enabled = true;
-  document.getElementById("hello").appendChild(renderer.domElement);
+  document.getElementById("cosmos").appendChild(renderer.domElement);
 
   // 自动缩放
   window.addEventListener("resize", () => {
-    // Update Sizes
-    screenSize.width = window.innerWidth;
-    screenSize.height = window.innerHeight;
+    divSize.width = document.getElementById("cosmos").clientWidth / 1;
+    divSize.height = document.getElementById("cosmos").clientHeight / 1;
 
     // Update Camera
-    camera.aspect = screenSize.width / (screenSize.height - 300);
+    camera.aspect = divSize.width / divSize.height;
     camera.updateProjectionMatrix();
 
     // Update Renderer
-    renderer.setSize(screenSize.width, screenSize.height - 300);
+    renderer.setSize(divSize.width, divSize.height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  });
-
-  window.addEventListener("resize", () => {
-    console.log("window has been resized");
   });
 }
 
