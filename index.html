@@ -48,12 +48,19 @@
         justify-content: space-between;
       }
       .card {
+        /* flex: 1; */
+        background-color: rgb(27, 26, 26);
+        /* margin-bottom: 20px; */
+        border-radius: 10px;
+        padding: 15px;
+      }
+      /* .news {
         flex: 1;
         background-color: rgb(27, 26, 26);
         margin-bottom: 20px;
         border-radius: 10px;
         padding: 15px;
-      }
+      } */
       .card .title {
         background: linear-gradient(
           to left,
@@ -63,6 +70,12 @@
         padding: 10px;
         font-size: 20px;
         line-height: 20px;
+      }
+      .card .content {
+        color: white;
+      }
+      #news_figure {
+        width: 100%;
       }
       .footer {
         height: 100px;
@@ -109,6 +122,7 @@
       }
     </script>
     <script type="module" src="./orbit/orbit.js"></script>
+    <script src="news_update.js"></script>
   </head>
   <body>
     <div class="header">
@@ -118,15 +132,17 @@
     <div class="main">
       <div id="cosmos" class="left"></div>
       <div class="side">
-        <div class="card">
+        <!-- <div class="card">
           <div class="title">卫星状态/Satellite Status</div>
-        </div>
+        </div> -->
         <div class="card">
-          <div class="title">天格新闻/GRID News</div>
+          <div class="title" id="news_title">天格新闻/GRID News</div>
+          <img id="news_figure" src="" alt="" />
+          <p class="content" id="news_content">Hello Cosmos!</p>
         </div>
-        <div class="card">
+        <!-- <div class="card">
           <div class="title">天格科普/GRID Science</div>
-        </div>
+        </div> -->
       </div>
     </div>
     <div class="footer">
