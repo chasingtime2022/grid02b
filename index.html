@@ -25,7 +25,6 @@
       }
       .header #name {
         flex: 1;
-        flex-wrap: wrap;
         text-align: center;
         font-size: 60px;
         font-weight: bolder;
@@ -101,8 +100,9 @@
       }
       @media screen and (max-width: 600px) {
         .header #name {
-          font-size: 30px;
+          font-size: 40px;
           font-weight: bolder;
+          line-height: 50px;
         }
         .left {
           height: 500px;
@@ -148,7 +148,7 @@
         <div class="card">
           <div class="title" id="news_title">Hello Cosmos!</div>
           <img id="news_figure" src="" alt="" />
-          <p class="content" id="news_content">Hello Cosmos!</p>
+          <p class="content" id="news_content"></p>
         </div>
         <!-- <div class="card">
           <div class="title">天格科普/GRID Science</div>
