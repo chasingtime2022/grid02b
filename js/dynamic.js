@@ -21,15 +21,16 @@ function randomData() {
   };
 }
 let data = [];
-let now = new Date(1997, 9, 3);
+let now = new Date(2022, 9, 3);
 let oneDay = 24 * 3600 * 100;
 let value = Math.random() * 100;
-for (var i = 0; i < 1000; i++) {
+for (var i = 0; i < 800; i++) {
   data.push(randomData());
 }
 option = {
   title: {
     text: "Dynamic Signal from Cosmos",
+    x: "center",
   },
 
   grid: { left: "0%", top: "0%", width: "100%", height: "100%" },
@@ -81,7 +82,7 @@ setInterval(function () {
       },
     ],
   });
-}, 1000);
+}, 200);
 
 if (option && typeof option === "object") {
   myChart.setOption(option);
