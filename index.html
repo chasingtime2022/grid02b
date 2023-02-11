@@ -40,6 +40,15 @@
         flex: 1 1 auto;
         background-color: black;
       }
+      #dynamic {
+        width: calc(100% - 400px);
+        height: 100px;
+        position: absolute;
+        bottom: 150px;
+        left: 0;
+        display: flex;
+        justify-content: center;
+      }
       .side {
         flex: 0 0 400px;
         background-color: black;
@@ -98,7 +107,7 @@
         height: 50%;
         align-self: end;
       }
-      @media screen and (max-width: 600px) {
+      @media screen and (max-width: 800px) {
         .header #name {
           font-size: 40px;
           font-weight: bolder;
@@ -106,6 +115,13 @@
         }
         .left {
           height: 500px;
+        }
+        #dynamic {
+          display: flex;
+          width: 100%;
+          position: relative;
+          top: 0px;
+          margin-bottom: 30px;
         }
         .main {
           flex-direction: column;
@@ -132,7 +148,7 @@
       }
     </script>
     <script type="module" src="./orbit/orbit.js"></script>
-    <script src="news_update.js"></script>
+    <script src="./js/news_update.js"></script>
   </head>
   <body>
     <div class="header">
@@ -141,6 +157,9 @@
     </div>
     <div class="main">
       <div id="cosmos" class="left"></div>
+      <div id="dynamic"></div>
+      <script type="text/javascript" src="./js/echarts.js"></script>
+      <script type="text/javascript" src="./js/dynamic.js"></script>
       <div class="side">
         <!-- <div class="card">
           <div class="title">卫星状态/Satellite Status</div>
