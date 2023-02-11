@@ -46,11 +46,13 @@
       #cosmos {
         height: calc(100% - 150px);
       }
-      #dynamic {
-        width: 100%;
+      .dynamic {
         height: 100px;
-        display: flex;
-        justify-content: center;
+        text-align: center;
+      }
+      #dynamic {
+        margin: 0;
+        padding: 0;
       }
       .side {
         flex: 0 0 400px;
@@ -123,6 +125,10 @@
           flex-direction: column;
           height: auto;
         }
+        #dynamic {
+          width: 100%;
+          height: 100px;
+        }
         .side {
           right: 0;
           padding: 0;
@@ -154,7 +160,8 @@
     <div class="main">
       <div id="left" class="left">
         <div id="cosmos"></div>
-        <div id="dynamic">
+        <div class="dynamic">
+          <canvas id="dynamic"></canvas>
           <script type="text/javascript" src="./js/echarts.js"></script>
           <script type="text/javascript" src="./js/dynamic.js"></script>
         </div>
