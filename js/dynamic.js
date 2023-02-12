@@ -1,91 +1,74 @@
-var dom = document.getElementById("dynamic");
-var myChart = echarts.init(dom, null, {
-  renderer: "canvas",
-  useDirtyRect: false,
-  width: 400,
-  height: 100,
-});
-var app = {};
+// 基于准备好的dom，初始化echarts实例
+var myChart = echarts.init(document.getElementById("dynamic"));
+window.addEventListener("resize", myChart.resize);
 
-var option;
+// 指定图表的配置项和数据
+var x_data = [];
+var y_data = [];
+for (var i = 0; i < 50; i++) {
+  x_data.push(i);
+  y_data.push(Math.random() * 10 - 5);
+}
+var x_num = 50;
+setInterval(() => {
+  for (var i = 0; i < 1; i++) {
+    x_data.shift();
+    x_data.push(x_num);
+    y_data.shift();
+    y_data.push(Math.random() * 10 - 5);
+    x_num += 1;
+  }
+  myChart.setOption(option);
+}, 300);
 
-function randomData() {
-  now = new Date(+now + oneDay);
-  value = Math.random() * 21 - 10;
-  return {
-    name: now.toString(),
-    value: [
-      [now.getFullYear(), now.getMonth() + 1, now.getDate()].join("/"),
-      Math.round(value),
-    ],
-  };
-}
-let data = [];
-let now = new Date(2022, 9, 3);
-let oneDay = 24 * 3600 * 100;
-let value = Math.random() * 100;
-for (var i = 0; i < 800; i++) {
-  data.push(randomData());
-}
-option = {
+var option = {
   title: {
-    text: "Dynamic Signal from Cosmos",
+    text: "Gamma Ray Signal",
     x: "center",
+    y: "bottom",
+    textStyle: {
+      fontSize: 20,
+      fontFamily: "Microsoft Yahei",
+    },
+  },
+  tooltip: {},
+  legend: {},
+  grid: {
+    // show: true,
+    top: 0,
+    bottom: 60,
+    left: 0,
+    right: 0,
   },
 
-  grid: { left: "0%", top: "0%", width: "100%", height: "100%" },
+  // x轴数据
   xAxis: {
-    type: "time",
-    splitLine: {
-      show: false,
-    },
-    axisTick: {
-      show: false,
-    },
-    axisLabel: {
-      show: false,
-    },
+    data: x_data,
+    show: true,
+    axisTick: { show: false },
+    axisLabel: { show: false },
   },
+  // y轴数据
   yAxis: {
-    type: "value",
-    boundaryGap: [0, "100%"],
-    splitLine: {
-      show: false,
-    },
-    axisTick: {
-      show: false,
-    },
-    axisLabel: {
-      show: false,
-    },
+    show: false,
   },
   series: [
     {
-      name: "Fake Data",
       type: "line",
-      showSymbol: false,
-      areaStyle: { color: "black" },
-      data: data,
-      lineStyle: { color: "purple" },
+      color: "#4ffbdf",
+
+      symbol: "none",
+      step: "middle",
+      areaStyle: {
+        color: "black",
+        opacity: 0.5,
+      },
+      data: y_data,
+      emphasis: {
+        lineStyle: {
+          color: "blue",
+        },
+      },
     },
   ],
 };
-setInterval(function () {
-  for (var i = 0; i < 5; i++) {
-    data.shift();
-    data.push(randomData());
-  }
-  myChart.setOption({
-    series: [
-      {
-        data: data,
-      },
-    ],
-  });
-}, 200);
-
-if (option && typeof option === "object") {
-  myChart.setOption(option);
-}
-
-window.addEventListener("resize", myChart.resize);
