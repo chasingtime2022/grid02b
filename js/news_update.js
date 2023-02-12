@@ -1,5 +1,21 @@
 const news = [
   {
+    title: "天格计划GRID",
+    img_url: "./news/grid_logo_1.jpg",
+    content:
+      "伽马暴的瞬时辐射机制有多种猜想，至今仍未有定论。<br><br>2016年，天格学生团队对这一 前沿科学问题发起挑战。<br><br>构建一个覆盖全天的伽马射线暴探测网络，监测、定位与引力波爆发成协的短伽马射线暴。",
+  },
+  {
+    title: "The First Members of GRID",
+    img_url: "./news/creators.jpg",
+    content: "",
+  },
+  {
+    title: "Neutron Star Merger",
+    img_url: "./news/neutron.gif",
+    content: "",
+  },
+  {
     title: "Hubble Telescope",
     img_url: "./news/hubble.png",
     content:
@@ -25,10 +41,11 @@ const news = [
   },
 ];
 
+let news_num = news.length;
 let count = 0;
 let n;
 setInterval(function () {
-  n = count % 4;
+  n = count % news_num;
   document.querySelector("#news_title").innerHTML = news[n].title;
   document.querySelector("#news_figure").src = news[n].img_url;
   document.querySelector("#news_content").innerHTML = news[n].content;
