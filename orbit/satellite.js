@@ -16,12 +16,6 @@ function main() {
     const zFar = 1000;
     return new THREE.PerspectiveCamera(fov, aspect, zNear, zFar);
   }
-  // 摄像机视角1
-  const screenCamera = makeCamera();
-  //   camera.position.set(8, 4, 10).multiplyScalar(3);
-  screenCamera.position.set(50, 0, 20).multiplyScalar(1);
-  // earthMesh.add(screenCamera);
-  // camera.lookAt(0, 0, 0);
 
   const scene = new THREE.Scene();
 
@@ -50,14 +44,14 @@ function main() {
   scene.add(solarSystem);
 
   // 太阳 sun
-  // const sunMaterial = new THREE.MeshPhongMaterial({
-  //   // map: textureLoader.load("./satellite/color_512_0.png"),
-  //   color: 0xffffff,
-  // });
-  // const sunMesh = new THREE.Mesh(sphereGeometry, sunMaterial);
-  // sunMesh.scale.set(5, 5, 5);
-  // solarSystem.add(sunMesh);
-  // objects.push(sunMesh);
+  const sunMaterial = new THREE.MeshPhongMaterial({
+    // map: textureLoader.load("./satellite/color_512_0.png"),
+    color: 0xffffff,
+  });
+  const sunMesh = new THREE.Mesh(sphereGeometry, sunMaterial);
+  sunMesh.scale.set(5, 5, 5);
+  solarSystem.add(sunMesh);
+  objects.push(sunMesh);
 
   // 太阳放光
   // const emitLight1 = new THREE.DirectionalLight(0xffffff, 1);
@@ -72,8 +66,8 @@ function main() {
 
   // 太阳视角
   const sunCamera = makeCamera();
-  sunCamera.position.set(30, 0, 0);
-  solarSystem.add(sunCamera);
+  sunCamera.position.set(0, 10, 0);
+  // earthOrbit.add(sunCamera);
 
   // 太阳光照
   scene.fog = new THREE.FogExp2(0x000000, 0.00000025);
@@ -148,10 +142,23 @@ function main() {
   earthCamera.position.set(0, 0.5, 0);
   earthMesh.add(earthCamera);
 
-  // 卫星轨道系统 gridOrbit
+  // // 摄像机视角1
+  const screenCamera = makeCamera();
+  // //   camera.position.set(8, 4, 10).multiplyScalar(3);
+  screenCamera.position.set(50, 0, 16).multiplyScalar(1);
+  earthOrbit.add(screenCamera);
+  // // camera.lookAt(0, 0, 0);
+
+  // 卫星轨道系统 gridOrbitZ
+  const gridOrbitZ = new THREE.Object3D();
+  gridOrbitZ.position.x = 50;
+  gridOrbitZ.rotation.y = -0.3;
+  earthOrbit.add(gridOrbitZ);
+  objects.push(gridOrbitZ);
+  // 卫星轨道系统 gridOrbitX
   const gridOrbit = new THREE.Object3D();
-  gridOrbit.position.x = 50;
-  earthOrbit.add(gridOrbit);
+  gridOrbit.position.x = 0;
+  gridOrbitZ.add(gridOrbit);
   objects.push(gridOrbit);
 
   // obj卫星
@@ -181,7 +188,7 @@ function main() {
 
   // 卫星视角
   const gridCamera = makeCamera();
-  gridCamera.position.set(0, 10, 0);
+  gridCamera.position.set(0, 20, 0);
   gridOrbit.add(gridCamera);
 
   // 月球轨道
@@ -220,8 +227,8 @@ function main() {
 
   const cameras = [
     { cam: screenCamera, desc: "Cosmos Camera" },
-    { cam: earthCamera, desc: "Earth Camera" },
-    { cam: sunCamera, desc: "Sun Camera" },
+    // { cam: earthCamera, desc: "Earth Camera" },
+    // { cam: sunCamera, desc: "Sun Camera" },
     { cam: gridCamera, desc: "GRID Satellite Camera" },
     { cam: moonCamera, desc: "Moon Camera" },
   ];
@@ -246,8 +253,9 @@ function main() {
     //   obj.rotation.y = time * 0.1;
     // });
     // gridOrbit.rotation.x = time * 0.1;
-    // solarSystem.rotation.y = time * 1;
-    // earthOrbit.rotation.y = time * 1;
+    solarSystem.rotation.y = time * 1;
+    // 地球公转
+    earthOrbit.rotation.y = time * 1;
     // earthMesh.rotation.y = 0;
 
     // 月球公转
@@ -256,15 +264,17 @@ function main() {
     // 月球自转
     moonMesh.rotation.y = time * 0.1;
 
-    earthMesh.rotateOnAxis(rotateAxis, time * 0.000001);
+    // 地球自转
+    earthMesh.rotateOnAxis(rotateAxis, time * 0.0001);
 
     // 卫星轨道
+    // gridOrbitZ.rotation.y = time * 0.1;
     gridOrbit.rotation.x = time * 0.1;
 
     // look at earth from sun
     earthMesh.getWorldPosition(targetPosition);
     sunCamera.lookAt(targetPosition);
-    sunLight.lookAt(targetPosition);
+    // sunLight.lookAt(targetPosition);
 
     // look at earth from cosmos 屏幕视角
     earthMesh.getWorldPosition(targetPosition);
@@ -287,7 +297,7 @@ function main() {
 
     renderer.render(scene, camera.cam);
     renderer.shadowMap.enabled = true;
-    // renderer.render(scene, screenCamera);
+    // renderer.render(scene, gridCamera);
 
     requestAnimationFrame(render);
   }
