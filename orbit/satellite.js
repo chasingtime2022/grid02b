@@ -44,14 +44,14 @@ function main() {
   scene.add(solarSystem);
 
   // 太阳 sun
-  const sunMaterial = new THREE.MeshPhongMaterial({
-    // map: textureLoader.load("./satellite/color_512_0.png"),
-    color: 0xffffff,
-  });
-  const sunMesh = new THREE.Mesh(sphereGeometry, sunMaterial);
-  sunMesh.scale.set(5, 5, 5);
-  solarSystem.add(sunMesh);
-  objects.push(sunMesh);
+  // const sunMaterial = new THREE.MeshPhongMaterial({
+  //   // map: textureLoader.load("./satellite/color_512_0.png"),
+  //   color: 0xffffff,
+  // });
+  // const sunMesh = new THREE.Mesh(sphereGeometry, sunMaterial);
+  // sunMesh.scale.set(5, 5, 5);
+  // solarSystem.add(sunMesh);
+  // objects.push(sunMesh);
 
   // 太阳放光
   // const emitLight1 = new THREE.DirectionalLight(0xffffff, 1);
@@ -265,7 +265,7 @@ function main() {
     moonMesh.rotation.y = time * 0.1;
 
     // 地球自转
-    earthMesh.rotateOnAxis(rotateAxis, time * 0.0001);
+    earthMesh.rotateOnAxis(rotateAxis, time * 0.00001);
 
     // 卫星轨道
     // gridOrbitZ.rotation.y = time * 0.1;
