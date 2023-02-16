@@ -19,7 +19,8 @@ function main() {
   // 摄像机视角1
   const screenCamera = makeCamera();
   //   camera.position.set(8, 4, 10).multiplyScalar(3);
-  screenCamera.position.set(50, 0, 0).multiplyScalar(1);
+  screenCamera.position.set(50, 0, 20).multiplyScalar(1);
+  // earthMesh.add(screenCamera);
   // camera.lookAt(0, 0, 0);
 
   const scene = new THREE.Scene();
@@ -70,9 +71,9 @@ function main() {
   // objects.push(emitLight2);
 
   // 太阳视角
-  // const sunCamera = makeCamera();
-  // sunCamera.position.set(0, 0, 0);
-  // sunMesh.add(sunCamera);
+  const sunCamera = makeCamera();
+  sunCamera.position.set(30, 0, 0);
+  solarSystem.add(sunCamera);
 
   // 太阳光照
   scene.fog = new THREE.FogExp2(0x000000, 0.00000025);
@@ -85,8 +86,8 @@ function main() {
 
   // 地月系统 earthOrbit
   const earthOrbit = new THREE.Object3D();
-  earthOrbit.position.x = 50;
-  earthOrbit.rotation.x = 0.4;
+  // earthOrbit.position.x = 50;
+  // earthOrbit.rotation.x = 0.4;
   solarSystem.add(earthOrbit);
   objects.push(earthOrbit);
 
@@ -106,8 +107,13 @@ function main() {
     normalScale: new THREE.Vector2(0.85, -0.85),
   });
   const earthMesh = new THREE.Mesh(sphereGeometry, earthMaterial);
-  earthMesh.rotation.z = 0;
+  earthMesh.position.x = 50;
+  earthMesh.rotation.z = 0.5;
+  // earthMesh.rotateX(1);
+  // earthMesh.rotateY(1);
+  // earthMesh.rotateZ(-0.5);
   earthMesh.scale.set(3, 3, 3);
+  const rotateAxis = new THREE.Vector3(0, 1, 0);
   earthOrbit.add(earthMesh);
   objects.push(earthMesh);
 
@@ -139,14 +145,13 @@ function main() {
   // 地球视角 earthMesh.earthCamera
   const earthCameraFov = 75;
   const earthCamera = makeCamera(earthCameraFov);
-  earthCamera.position.y = 0;
-  earthCamera.position.z = 0;
-  earthCamera.rotation.y = 0;
+  earthCamera.position.set(0, 0.5, 0);
   earthMesh.add(earthCamera);
 
   // 卫星轨道系统 gridOrbit
   const gridOrbit = new THREE.Object3D();
-  earthMesh.add(gridOrbit);
+  gridOrbit.position.x = 50;
+  earthOrbit.add(gridOrbit);
   objects.push(gridOrbit);
 
   // obj卫星
@@ -155,8 +160,8 @@ function main() {
   // const satellite = objLoader.load("./satellite/satellite.obj");
   // satellite.scale.set(1, 1, 1);
   objLoader.load("./satellite/satellite.obj", function (object) {
-    object.scale.set(0.03, 0.03, 0.03);
-    object.position.set(0.5, 1.2, 0);
+    object.scale.set(0.1, 0.1, 0.1);
+    object.position.set(0, 5, 0);
     gridOrbit.add(object);
     objects.push(object);
     // return object;
@@ -169,19 +174,19 @@ function main() {
   });
   const gridMesh = new THREE.Mesh(sphereGeometry, gridMaterial);
   gridMesh.scale.set(0.01, 0.01, 0.01);
-  gridMesh.position.y = 1;
-  gridMesh.position.x = 0.3;
+  gridMesh.position.y = 50;
+  // gridMesh.position.x = 0.3;
   gridOrbit.add(gridMesh);
   objects.push(gridMesh);
 
   // 卫星视角
   const gridCamera = makeCamera();
-  gridCamera.position.set(2, 2, 2).multiplyScalar(100);
-  gridMesh.add(gridCamera);
+  gridCamera.position.set(0, 10, 0);
+  gridOrbit.add(gridCamera);
 
   // 月球轨道
   const moonOrbit = new THREE.Object3D();
-  moonOrbit.position.x = 10;
+  moonOrbit.position.x = 50;
   earthOrbit.add(moonOrbit);
 
   // 月球
@@ -189,7 +194,8 @@ function main() {
     map: textureLoader.load("./orbit/textures/planets/moon_1024.jpg"),
   });
   const moonMesh = new THREE.Mesh(sphereGeometry, moonMaterial);
-  moonMesh.scale.set(1, 1, 1);
+  // moonMesh.scale.set(1, 1, 1);
+  moonMesh.position.x = 10;
 
   moonOrbit.add(moonMesh);
   objects.push(moonMesh);
@@ -214,8 +220,8 @@ function main() {
 
   const cameras = [
     { cam: screenCamera, desc: "Cosmos Camera" },
-    // { cam: earthCamera, desc: "Earth Camera" },
-    // { cam: sunCamera, desc: "Sun Camera" },
+    { cam: earthCamera, desc: "Earth Camera" },
+    { cam: sunCamera, desc: "Sun Camera" },
     { cam: gridCamera, desc: "GRID Satellite Camera" },
     { cam: moonCamera, desc: "Moon Camera" },
   ];
@@ -236,30 +242,43 @@ function main() {
     }
 
     // 星球运转
-    objects.forEach((obj) => {
-      obj.rotation.y = time * 0.1;
-    });
+    // objects.forEach((obj) => {
+    //   obj.rotation.y = time * 0.1;
+    // });
+    // gridOrbit.rotation.x = time * 0.1;
+    // solarSystem.rotation.y = time * 1;
+    // earthOrbit.rotation.y = time * 1;
+    // earthMesh.rotation.y = 0;
+
+    // 月球公转
+    moonOrbit.rotation.y = time * 0.1;
+
+    // 月球自转
+    moonMesh.rotation.y = time * 0.1;
+
+    earthMesh.rotateOnAxis(rotateAxis, time * 0.000001);
+
+    // 卫星轨道
     gridOrbit.rotation.x = time * 0.1;
-    gridOrbit.rotation.y = time * 0.1;
 
     // look at earth from sun
-    // earthMesh.getWorldPosition(targetPosition);
-    // sunCamera.lookAt(targetPosition);
-    // sunLight.lookAt(targetPosition);
+    earthMesh.getWorldPosition(targetPosition);
+    sunCamera.lookAt(targetPosition);
+    sunLight.lookAt(targetPosition);
 
-    // look at earth from cosmos
+    // look at earth from cosmos 屏幕视角
     earthMesh.getWorldPosition(targetPosition);
     screenCamera.lookAt(targetPosition);
 
-    // look at earth from GRID satellite
+    // look at earth from GRID satellite 卫星视角
     earthMesh.getWorldPosition(targetPosition);
     gridCamera.lookAt(targetPosition);
 
-    // // look at GRID from moon
-    gridMesh.getWorldPosition(targetPosition);
+    // // look at GRID from moon 月球视角
+    earthMesh.getWorldPosition(targetPosition);
     moonCamera.lookAt(targetPosition);
 
-    // // look at GRID from earth
+    // // look at GRID from earth 地球视角
     gridMesh.getWorldPosition(targetPosition);
     earthCamera.lookAt(targetPosition);
 
@@ -268,7 +287,7 @@ function main() {
 
     renderer.render(scene, camera.cam);
     renderer.shadowMap.enabled = true;
-    // renderer.render(scene, sunCamera);
+    // renderer.render(scene, screenCamera);
 
     requestAnimationFrame(render);
   }
