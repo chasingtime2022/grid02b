@@ -164,12 +164,17 @@
           display: none;
         }
       }
+      @media screen and (max-height: 1000px) {
+        .content {
+          display: none;
+        }
+      }
     </style>
     <script type="importmap">
       {
         "imports": {
           "three": "./build/three.module.js",
-          "three/addons/": "./jsm/"
+          "three/addons/": "./orbit/jsm/"
         }
       }
     </script>
