@@ -17,31 +17,12 @@ function main() {
     return new THREE.PerspectiveCamera(fov, aspect, zNear, zFar);
   }
   // 摄像机视角1
-  const camera = makeCamera();
+  const screenCamera = makeCamera();
   //   camera.position.set(8, 4, 10).multiplyScalar(3);
-  camera.position.set(0, 0, 10).multiplyScalar(3);
-  camera.lookAt(0, 0, 0);
+  screenCamera.position.set(50, 0, 0).multiplyScalar(1);
+  // camera.lookAt(0, 0, 0);
 
   const scene = new THREE.Scene();
-
-  // 光线
-  {
-    const light = new THREE.DirectionalLight(0xffffff, 1);
-    light.position.set(0, 20, 0);
-    scene.add(light);
-    light.castShadow = true;
-    light.shadow.mapSize.width = 2048;
-    light.shadow.mapSize.height = 2048;
-
-    const d = 50;
-    light.shadow.camera.left = -d;
-    light.shadow.camera.right = d;
-    light.shadow.camera.top = d;
-    light.shadow.camera.bottom = -d;
-    light.shadow.camera.near = 1;
-    light.shadow.camera.far = 50;
-    light.shadow.bias = 0.001;
-  }
 
   //   // 地平面建模;
   //   const groundGeometry = new THREE.PlaneGeometry(1, 1);
@@ -68,36 +49,44 @@ function main() {
   scene.add(solarSystem);
 
   // 太阳 sun
-  const sunMaterial = new THREE.MeshPhongMaterial({
-    map: textureLoader.load("./satellite/color_512_0.png"),
-  });
-  const sunMesh = new THREE.Mesh(sphereGeometry, sunMaterial);
-  sunMesh.scale.set(5, 5, 5);
-  solarSystem.add(sunMesh);
-  objects.push(sunMesh);
+  // const sunMaterial = new THREE.MeshPhongMaterial({
+  //   // map: textureLoader.load("./satellite/color_512_0.png"),
+  //   color: 0xffffff,
+  // });
+  // const sunMesh = new THREE.Mesh(sphereGeometry, sunMaterial);
+  // sunMesh.scale.set(5, 5, 5);
+  // solarSystem.add(sunMesh);
+  // objects.push(sunMesh);
+
+  // 太阳放光
+  // const emitLight1 = new THREE.DirectionalLight(0xffffff, 1);
+  // emitLight1.position.set(1, 0, 0);
+  // sunMesh.add(emitLight1);
+  // objects.push(emitLight1);
+
+  // const emitLight2 = new THREE.DirectionalLight(0xffffff, 1);
+  // emitLight2.position.set(-1, 0, 0);
+  // sunMesh.add(emitLight2);
+  // objects.push(emitLight2);
 
   // 太阳视角
-  const sunCamera = makeCamera();
-  sunCamera.position.set(0, 0, 10);
-  sunMesh.add(sunCamera);
+  // const sunCamera = makeCamera();
+  // sunCamera.position.set(0, 0, 0);
+  // sunMesh.add(sunCamera);
 
-  const light = new THREE.DirectionalLight(0xffffff, 1);
-  light.position.set(0, 0, 0);
-  solarSystem.add(light);
-  objects.push(light);
-
-  // 光源
+  // 太阳光照
   scene.fog = new THREE.FogExp2(0x000000, 0.00000025);
-  const envLight = new THREE.PointLight(0xffffff);
-  envLight.position.set(0, 0, 0).normalize();
-  envLight.intensity = 2;
-  envLight.castShadow = true;
-  solarSystem.add(envLight);
-  objects.push(envLight);
+  const sunLight = new THREE.PointLight(0xffffff);
+  sunLight.position.set(0, 0, 0).normalize();
+  sunLight.intensity = 2;
+  sunLight.castShadow = true;
+  solarSystem.add(sunLight);
+  objects.push(sunLight);
 
   // 地月系统 earthOrbit
   const earthOrbit = new THREE.Object3D();
   earthOrbit.position.x = 50;
+  earthOrbit.rotation.x = 0.4;
   solarSystem.add(earthOrbit);
   objects.push(earthOrbit);
 
@@ -117,9 +106,35 @@ function main() {
     normalScale: new THREE.Vector2(0.85, -0.85),
   });
   const earthMesh = new THREE.Mesh(sphereGeometry, earthMaterial);
+  earthMesh.rotation.z = 0;
   earthMesh.scale.set(3, 3, 3);
   earthOrbit.add(earthMesh);
   objects.push(earthMesh);
+
+  // 环境光照
+  const envLight = new THREE.DirectionalLight(0xffffff, 0.3);
+  envLight.position.set(0, 0, 0);
+  earthMesh.add(envLight);
+  objects.push(envLight);
+
+  // 光线
+  // {
+  //   const light = new THREE.DirectionalLight(0xffffff, 0.01);
+  //   light.position.set(0, 0, 100);
+  //   earthMesh.add(light);
+  //   light.castShadow = true;
+  //   light.shadow.mapSize.width = 2048;
+  //   light.shadow.mapSize.height = 2048;
+
+  //   const d = 50;
+  //   light.shadow.camera.left = -d;
+  //   light.shadow.camera.right = d;
+  //   light.shadow.camera.top = d;
+  //   light.shadow.camera.bottom = -d;
+  //   light.shadow.camera.near = 1;
+  //   light.shadow.camera.far = 50;
+  //   light.shadow.bias = 0.001;
+  // }
 
   // 地球视角 earthMesh.earthCamera
   const earthCameraFov = 75;
@@ -135,8 +150,10 @@ function main() {
   objects.push(gridOrbit);
 
   // obj卫星
+  const gridOBJ = null;
   var objLoader = new OBJLoader();
   // const satellite = objLoader.load("./satellite/satellite.obj");
+  // satellite.scale.set(1, 1, 1);
   objLoader.load("./satellite/satellite.obj", function (object) {
     object.scale.set(0.03, 0.03, 0.03);
     object.position.set(0.5, 1.2, 0);
@@ -173,6 +190,7 @@ function main() {
   });
   const moonMesh = new THREE.Mesh(sphereGeometry, moonMaterial);
   moonMesh.scale.set(1, 1, 1);
+
   moonOrbit.add(moonMesh);
   objects.push(moonMesh);
 
@@ -195,8 +213,9 @@ function main() {
   const targetPosition = new THREE.Vector3();
 
   const cameras = [
-    // { cam: camera, desc: "Cosmos Camera" },
+    { cam: screenCamera, desc: "Cosmos Camera" },
     // { cam: earthCamera, desc: "Earth Camera" },
+    // { cam: sunCamera, desc: "Sun Camera" },
     { cam: gridCamera, desc: "GRID Satellite Camera" },
     { cam: moonCamera, desc: "Moon Camera" },
   ];
@@ -218,15 +237,19 @@ function main() {
 
     // 星球运转
     objects.forEach((obj) => {
-      obj.rotation.y = time * 0.01;
+      obj.rotation.y = time * 0.1;
     });
     gridOrbit.rotation.x = time * 0.1;
     gridOrbit.rotation.y = time * 0.1;
 
     // look at earth from sun
+    // earthMesh.getWorldPosition(targetPosition);
+    // sunCamera.lookAt(targetPosition);
+    // sunLight.lookAt(targetPosition);
+
+    // look at earth from cosmos
     earthMesh.getWorldPosition(targetPosition);
-    sunCamera.lookAt(targetPosition);
-    light.lookAt(targetPosition);
+    screenCamera.lookAt(targetPosition);
 
     // look at earth from GRID satellite
     earthMesh.getWorldPosition(targetPosition);
@@ -245,7 +268,7 @@ function main() {
 
     renderer.render(scene, camera.cam);
     renderer.shadowMap.enabled = true;
-    // renderer.render(scene, camera);
+    // renderer.render(scene, sunCamera);
 
     requestAnimationFrame(render);
   }
