@@ -265,7 +265,7 @@ function main() {
     moonMesh.rotation.y = time * 0.1;
 
     // 地球自转
-    earthMesh.rotateOnAxis(rotateAxis, time * 0.00001);
+    earthMesh.rotateOnAxis(rotateAxis, 0.001);
 
     // 卫星轨道
     // gridOrbitZ.rotation.y = time * 0.1;
