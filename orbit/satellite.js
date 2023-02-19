@@ -342,7 +342,7 @@ function main() {
     // gridMesh2.getWorldPosition(pos);
     // gridMesh1.worldToLocal(pos);
 
-    if (count % 10 === 1) {
+    if (count % 60 === 1) {
       if (point_pair.length > 2) {
         point_pair.shift();
       }
@@ -362,8 +362,8 @@ function main() {
     }
 
     count += 1;
-    if (earthMesh.children.length > 30) {
-      lineGroup.remove(lineGroup.children[5]);
+    if (earthOrbit.children.length > 30) {
+      earthOrbit.remove(earthOrbit.children[5]);
     }
 
     // look at earth from sun
