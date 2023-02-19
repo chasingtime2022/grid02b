@@ -110,7 +110,7 @@ function main() {
   // earthMesh.rotation.z = 0.5;
   // earthMesh.rotateX(1);
   // earthMesh.rotateY(1);
-  earthMesh.rotateZ(-0.5);
+  earthMesh.rotateZ(-0.4);
   earthMesh.scale.set(3, 3, 3);
   // earthMesh.add(new THREE.AxesHelper(10));
   const rotateAxis = new THREE.Vector3(0, 1, 0);
@@ -191,7 +191,7 @@ function main() {
   //grid 1
   const gridMesh1 = new THREE.Mesh(sphereGeometry, gridMaterial);
   gridMesh1.scale.set(0.01, 0.01, 0.01);
-  gridMesh1.position.y = 3;
+  gridMesh1.position.y = 5;
   // gridMesh1.add(new THREE.AxesHelper(50));
   // gridMesh.position.x = 0.3;
   gridOrbit.add(gridMesh1);
