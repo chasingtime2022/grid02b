@@ -17,7 +17,7 @@
         font-family: "Microsoft YaHei Bold", sans-serif;
       }
       .header {
-        height: 100px;
+        height: 150px;
         display: flex;
       }
       .header #logo {
@@ -26,14 +26,14 @@
       .header #name {
         flex: 1;
         text-align: center;
-        font-size: 60px;
+        font-size: 80px;
         font-weight: bolder;
-        line-height: 100px;
+        line-height: 150px;
         margin: 0;
       }
       .main {
         width: 100%;
-        height: calc(100% - 200px);
+        height: calc(100% - 250px);
         background-color: black;
         display: flex;
       }
@@ -124,9 +124,16 @@
         text-align: center;
         background: linear-gradient(to left, rgb(28, 85, 217), white);
       }
-      .footer p {
-        flex: 1;
+      #welcome {
+        flex: 4;
         font-size: 30px;
+      }
+      #author {
+        flex: 1;
+        font-size: 24px;
+        align-self: end;
+        margin: 8px 0;
+        padding: 0;
       }
       .footer #code {
         height: 80px;
@@ -135,11 +142,15 @@
         height: 50%;
         align-self: end;
       }
+      .label {
+        color: chartreuse;
+        background: chartreuse;
+      }
       @media screen and (max-width: 800px) {
         .header #name {
-          font-size: 40px;
+          font-size: 50px;
           font-weight: bolder;
-          line-height: 50px;
+          line-height: 75px;
         }
         .left {
           width: 100%;
@@ -218,6 +229,7 @@
       </div>
     </div>
     <div class="footer">
+      <p id="author">Author: Li Hongxin</p>
       <p id="welcome">Welcome to Join Us!</p>
       <img id="code" src="./satellite/wechat.png" alt="" />
       <img id="slogan" src="./satellite/slogan.png" alt="" />
