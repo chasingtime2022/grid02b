@@ -1,6 +1,10 @@
 import * as THREE from "three";
 import { OBJLoader } from "three/addons/loaders/OBJLoader.js";
 import { MTLLoader } from "three/addons/loaders/MTLLoader.js";
+import {
+  CSS2DRenderer,
+  CSS2DObject,
+} from "three/addons/renderers/CSS2DRenderer.js";
 
 function main() {
   const canvas = document.querySelector("#c");
@@ -158,7 +162,7 @@ function main() {
   // 卫星轨道系统 gridOrbitX
   const gridOrbit = new THREE.Object3D();
   gridOrbit.position.x = 0;
-  gridOrbitZ.add(gridOrbit);
+  earthMesh.add(gridOrbit);
   objects.push(gridOrbit);
 
   // obj卫星
@@ -168,7 +172,7 @@ function main() {
   // satellite.scale.set(1, 1, 1);
   objLoader.load("./satellite/satellite.obj", function (object) {
     object.scale.set(0.1, 0.1, 0.1);
-    object.position.set(0, 5, 0);
+    object.position.set(0, 2, 0);
     gridOrbit.add(object);
     objects.push(object);
     // return object;
@@ -181,14 +185,14 @@ function main() {
   });
   const gridMesh = new THREE.Mesh(sphereGeometry, gridMaterial);
   gridMesh.scale.set(0.01, 0.01, 0.01);
-  gridMesh.position.y = 50;
+  gridMesh.position.y = 1;
   // gridMesh.position.x = 0.3;
   gridOrbit.add(gridMesh);
   objects.push(gridMesh);
 
   // 卫星视角
   const gridCamera = makeCamera();
-  gridCamera.position.set(0, 20, 0);
+  gridCamera.position.set(0, 12, 0);
   gridOrbit.add(gridCamera);
 
   // 月球轨道
@@ -234,8 +238,43 @@ function main() {
   ];
 
   const infoElem = document.querySelector("#info");
+  // 地球标签
+  const earthDiv = document.createElement("div");
+  earthDiv.className = "label";
+  earthDiv.textContent = "Earth";
+  earthDiv.style.marginTop = "-2em";
+  const earthLabel = new CSS2DObject(earthDiv);
+  earthLabel.position.set(0, 25, 0);
+  earthMesh.add(earthLabel);
+
+  // 月球标签
+  const moonDiv = document.createElement("div");
+  moonDiv.className = "label";
+  moonDiv.textContent = "Moon";
+  moonDiv.style.marginTop = "-2em";
+  const moonLabel = new CSS2DObject(moonDiv);
+  moonLabel.position.set(0, 10, 10);
+  moonMesh.add(moonLabel);
+
+  // 卫星标签
+  const gridDiv = document.createElement("div");
+  gridDiv.className = "label";
+  gridDiv.textContent = "GRID Satellite";
+  gridDiv.style.marginTop = "-2em";
+  const gridLabel = new CSS2DObject(gridDiv);
+  gridLabel.position.set(0, 15, 10);
+  gridMesh.add(gridLabel);
+
+  // 文本渲染
+  const labelRenderer = new CSS2DRenderer();
+  labelRenderer.domElement.style.position = "absolute";
+  labelRenderer.domElement.style.top = "0px";
+  document.body.appendChild(labelRenderer.domElement);
 
   // 渲染
+  let count = 0;
+  let point_pair = [];
+
   function render(time) {
     time *= 0.001;
 
@@ -253,9 +292,9 @@ function main() {
     //   obj.rotation.y = time * 0.1;
     // });
     // gridOrbit.rotation.x = time * 0.1;
-    solarSystem.rotation.y = time * 1;
+    // solarSystem.rotation.y = time * 1;
     // 地球公转
-    earthOrbit.rotation.y = time * 1;
+    // earthOrbit.rotation.y = time * 1;
     // earthMesh.rotation.y = 0;
 
     // 月球公转
@@ -270,6 +309,27 @@ function main() {
     // 卫星轨道
     // gridOrbitZ.rotation.y = time * 0.1;
     gridOrbit.rotation.x = time * 0.1;
+
+    // 轨迹
+    const pos = new THREE.Vector3();
+    gridMesh.getWorldPosition(pos);
+
+    if (count % 60 === 1) {
+      if (point_pair.length > 2) {
+        point_pair.shift();
+      }
+      // point_pair.push(box0001.position);
+      point_pair.push(pos);
+      const lineMat = new THREE.LineBasicMaterial({ color: 0x00ff00 });
+      const lineGeo = new THREE.BufferGeometry().setFromPoints(point_pair);
+      const line = new THREE.Line(lineGeo, lineMat);
+      scene.add(line);
+    }
+
+    count += 1;
+    if (solarSystem.children.length > 20) {
+      solarSystem.remove(solarSystem.children[1]);
+    }
 
     // look at earth from sun
     earthMesh.getWorldPosition(targetPosition);
@@ -295,9 +355,12 @@ function main() {
     const camera = cameras[(time * 0.2) % cameras.length | 0];
     infoElem.textContent = camera.desc;
 
+    // labelRenderer.setSize(window.innerWidth, window.innerHeight);
+
     renderer.render(scene, camera.cam);
+    labelRenderer.render(scene, camera.cam);
     renderer.shadowMap.enabled = true;
-    // renderer.render(scene, gridCamera);
+    // renderer.render(scene, screenCamera);
 
     requestAnimationFrame(render);
   }
