@@ -147,10 +147,15 @@
         background: chartreuse;
       }
       @media screen and (max-width: 800px) {
+        .header {
+          height: 100px;
+        }
         .header #name {
-          font-size: 50px;
+          font-size: 45px;
           font-weight: bolder;
-          line-height: 75px;
+          line-height: 50px;
+          padding: 0;
+          margin: 0;
         }
         .left {
           width: 100%;
@@ -172,11 +177,12 @@
         .footer {
           justify-content: center;
         }
-        .footer #welcome {
+        .footer #welcome,
+        #author {
           display: none;
         }
       }
-      @media screen and (max-height: 1000px) {
+      @media screen and (max-height: 600px) {
         /* .side { */
         /* overflow: hidden; */
         /* } */
