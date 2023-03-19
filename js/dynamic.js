@@ -19,11 +19,13 @@ setInterval(() => {
     x_num += 1;
   }
   myChart.setOption(option);
+  window.addEventListener("resize", myChart.resize);
 }, 300);
 
 var option = {
   title: {
-    text: "Gamma Ray Signal",
+    text: "伽马射线信号",
+    // text: "Gamma Ray Signal",
     x: "center",
     y: "bottom",
     textStyle: {
