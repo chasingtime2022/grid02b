@@ -31,6 +31,13 @@
         line-height: 150px;
         margin: 0;
       }
+      .header #subtitle {
+        /* flex: 1; */
+        font-size: 30px;
+        align-self: flex-end;
+        justify-content: flex-end;
+        margin: 20px;
+      }
       .main {
         width: 100%;
         height: calc(100% - 250px);
@@ -74,6 +81,12 @@
       #dynamic {
         width: 800px;
         height: 150px;
+      }
+      .realtime {
+        position: absolute;
+        /* top: 20px; */
+        left: 20px;
+        color: white;
       }
       .side {
         flex: 0 0 400px;
@@ -151,11 +164,14 @@
           height: 100px;
         }
         .header #name {
-          font-size: 45px;
+          font-size: 50px;
           font-weight: bolder;
-          line-height: 50px;
+          line-height: 100px;
           padding: 0;
           margin: 0;
+        }
+        .header #subtitle {
+          display: none;
         }
         .left {
           width: 100%;
@@ -205,9 +221,23 @@
   <body>
     <div class="header">
       <img id="logo" src="./satellite/logo.png" alt="" />
-      <p id="name">伽马射线暴探测计划</p>
+      <p id="name"></p>
+      <p id="name">天</p>
+      <p id="name">格</p>
+      <p id="name">计</p>
+      <p id="name">划</p>
+      <p id="name"></p>
+      <p id="subtitle">空间分布式伽马射线暴探测网</p>
     </div>
     <div class="main">
+      <div class="realtime">
+        <!-- <ul>
+          <li>经度：</li>
+          <li>纬度：</li>
+          <li>高度：</li>
+          <li>温度：</li>
+        </ul> -->
+      </div>
       <div id="left" class="left">
         <div id="cosmos">
           <canvas id="c"></canvas>
