@@ -159,11 +159,12 @@
         flex: 4;
         font-size: 30px;
       }
-      #author {
-        flex: 1;
-        font-size: 24px;
+      .footer #author {
+        /* flex: 1; */
+        width: 180px;
+        font-size: 20px;
         align-self: end;
-        margin: 8px 0;
+        margin: 15px 0;
         padding: 0;
       }
       .footer #code {
@@ -177,7 +178,7 @@
         color: chartreuse;
         background: chartreuse;
       }
-      @media screen and (max-width: 800px) {
+      @media screen and (max-width: 768px) {
         .header {
           height: 100px;
         }
@@ -224,12 +225,32 @@
           display: none;
         }
       }
-      @media screen and (max-height: 600px) {
+      @media screen and (min-width: 769px) and (max-width: 1024px) {
         /* .side { */
         /* overflow: hidden; */
         /* } */
         .content {
           display: none;
+        }
+        #temperature {
+          padding: 0 30px;
+          width: 50%;
+          height: 150px;
+        }
+        #current {
+          padding: 0 30px;
+          width: 50%;
+          height: 150px;
+        }
+        .footer #author {
+          font-size: 20px;
+        }
+        .header #subtitle {
+          font-size: 24px;
+        }
+        .side {
+          right: 1%;
+          padding: 10px 0 0 0;
         }
       }
     </style>
