@@ -11,9 +11,12 @@ let tem_data = data["temperature"];
 // 指定图表的配置项和数据
 var x_data = [];
 var y_data = [];
+let tem_display;
 for (var i = 0; i < 50; i++) {
   x_data.push(i);
-  y_data.push((tem_data[i] - 12) * 1000);
+  // y_data.push((tem_data[i] - 12) * 1000);
+  y_data.push(tem_data[i]);
+  tem_display = tem_data[i];
 }
 var x_num = 50;
 setInterval(() => {
@@ -21,8 +24,13 @@ setInterval(() => {
     x_data.shift();
     x_data.push(x_num);
     y_data.shift();
-    y_data.push((tem_data[x_num] - 12) * 1000);
+    // y_data.push((tem_data[x_num] - 12) * 1000);
+    y_data.push(tem_data[x_num]);
     x_num += 1;
+    tem_display = tem_data[x_num];
+    if (x_num > 800) {
+      x_num = 50;
+    }
   }
   myChart.setOption(option);
   window.addEventListener("resize", myChart.resize);
@@ -44,10 +52,10 @@ var option = {
   legend: {},
   grid: {
     // show: false,
-    top: 0,
+    top: 10,
     bottom: 60,
-    left: 0,
-    right: 0,
+    left: 10,
+    right: 60,
   },
 
   // x轴数据
@@ -63,6 +71,7 @@ var option = {
     axisLabel: {
       show: true,
     },
+    scale: true, // 不强制显示零；
   },
   series: [
     {
@@ -81,6 +90,44 @@ var option = {
           color: "blue",
         },
       },
+      markPoint: {
+        data: [
+          { type: "max", name: "Max" },
+          { type: "min", name: "Min" },
+        ],
+        symbol: "circle",
+        symbolSize: 30, // 大小
+        symbolRotate: 0, // 旋转
+        symbolOffset: [0, 0], // 偏移
+        label: {
+          color: "white",
+        },
+        itemStyle: {
+          color: "rgba(215, 96, 96, 1)",
+        },
+      },
+      markLine: {
+        data: [{ type: "average", name: "Avg" }],
+        label: {
+          fontStyle: "normal",
+          fontWeight: "bolder",
+          color: "greenyellow",
+        },
+      },
     },
+    // {
+    //   // name: "Highest",
+    //   type: "point",
+    //   data: y_data,
+    //   markPoint: {
+    //     data: [
+    //       { type: "max", name: "Max" },
+    //       { type: "min", name: "Min" },
+    //     ],
+    //   },
+    //   markLine: {
+    //     data: [{ type: "average", name: "Avg" }],
+    //   },
+    // },
   ],
 };
