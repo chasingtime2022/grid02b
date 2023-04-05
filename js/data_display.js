@@ -5,6 +5,8 @@ import data from "./fits_data.json" assert { type: "json" };
 let n = 0;
 setInterval(function () {
   //   n = count % news_num;
+  const date = new Date(); // 当前时间
+
   let time = data["time"][n];
   let latitude = data["latitude"][n];
   let latitude_ew;
@@ -22,7 +24,7 @@ setInterval(function () {
   }
   let altitude = (data["altitude"][n] / 1000).toFixed(2) + " 千米";
 
-  document.querySelector("#time").innerHTML = "时间: " + time;
+  document.querySelector("#time").innerHTML = "时间: " + date;
   document.querySelector("#latitude").innerHTML = "纬度: " + latitude_ew;
   document.querySelector("#longitude").innerHTML = "经度: " + longitude_ew;
   document.querySelector("#altitude").innerHTML = "高度: " + altitude;
