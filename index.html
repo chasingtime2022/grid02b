@@ -82,8 +82,19 @@
         align-items: center;
       }
       #dynamic {
+        position: absolute;
+        background-color: black;
         width: 800px;
         height: 150px;
+        z-index: 2;
+      }
+      #current {
+        position: absolute;
+        background-color: black;
+
+        width: 800px;
+        height: 150px;
+        z-index: 1;
       }
       .realtime {
         position: absolute;
@@ -224,6 +235,7 @@
     </script>
     <script type="module" src="./orbit/satellite.js"></script>
     <script src="./js/news_update.js"></script>
+    <script type="module" src="./js/transit.js"></script>
   </head>
   <body>
     <div class="header">
@@ -261,6 +273,11 @@
             <script type="text/javascript" src="./js/echarts.js"></script>
             <!-- <script type="text/javascript" src="./js/dynamic.js"></script> -->
             <script type="module" src="./js/dynamic_temperature.js"></script>
+          </div>
+          <div id="current">
+            <!-- <script type="text/javascript" src="./js/echarts.js"></script> -->
+            <!-- <script type="text/javascript" src="./js/dynamic.js"></script> -->
+            <script type="module" src="./js/dynamic_current.js"></script>
           </div>
         </div>
       </div>
