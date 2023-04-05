@@ -54,7 +54,7 @@ var option = {
     // show: false,
     top: 10,
     bottom: 60,
-    left: 10,
+    left: 20,
     right: 60,
   },
 
