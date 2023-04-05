@@ -28,7 +28,8 @@ setInterval(() => {
     y_data.push(tem_data[x_num]);
     x_num += 1;
     tem_display = tem_data[x_num];
-    if (x_num > 800) {
+    // console.log(x_num);
+    if (x_num > 700) {
       x_num = 50;
     }
   }
@@ -38,13 +39,13 @@ setInterval(() => {
 
 var option = {
   title: {
-    text: "温度",
+    text: "SiPM 温度 /°C",
     // text: "Gamma Ray Signal",
     x: "center",
     y: "bottom",
     textStyle: {
-      fontSize: 20,
-      fontFamily: "Microsoft Yahei",
+      fontSize: 18,
+      // fontFamily: "Microsoft Yahei",
       color: "greenyellow",
     },
   },
@@ -52,7 +53,7 @@ var option = {
   legend: {},
   grid: {
     // show: false,
-    top: 10,
+    top: 20,
     bottom: 60,
     left: 20,
     right: 60,
@@ -111,6 +112,9 @@ var option = {
         label: {
           fontStyle: "normal",
           fontWeight: "bolder",
+          color: "greenyellow",
+        },
+        lineStyle: {
           color: "greenyellow",
         },
       },
