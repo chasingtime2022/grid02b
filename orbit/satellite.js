@@ -348,7 +348,7 @@ function main() {
       }
       // point_pair.push(gridMesh2.position);
       // console.log(gridMesh2.position);
-      console.log(grid_pos);
+      // console.log(grid_pos);
       attached_pos = grid_pos.sub(earth_pos).divideScalar(1);
       // attached_pos = grid_pos.divideScalar(0.01);
       // attached_pos = gridMesh2.position.divideScalar(20);
