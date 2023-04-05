@@ -89,8 +89,11 @@
         position: absolute;
         /* top: 20px; */
         left: 20px;
-        color: white;
+        color: greenyellow;
       }
+      /* .data {
+        color: white;
+      } */
       .side {
         flex: 0 0 400px;
         background-color: black;
@@ -235,12 +238,14 @@
     </div>
     <div class="main">
       <div class="realtime">
-        <!-- <ul>
-          <li>经度：</li>
-          <li>纬度：</li>
-          <li>高度：</li>
-          <li>温度：</li>
-        </ul> -->
+        <ul>
+          <li id="time" class="data">时间：UTC 08:20:33</li>
+          <li id="longitude" class="data">经度：120°东</li>
+          <li id="latitude" class="data">纬度：39°北</li>
+          <li id="altitude" class="data">高度：2023千米</li>
+          <!-- <li id="temperature">温度：-0.14°</li> -->
+          <script type="module" src="./js/data_display.js"></script>
+        </ul>
       </div>
       <div id="left" class="left">
         <div id="cosmos">
@@ -250,7 +255,8 @@
         <div class="lower">
           <div id="dynamic">
             <script type="text/javascript" src="./js/echarts.js"></script>
-            <script type="text/javascript" src="./js/dynamic.js"></script>
+            <!-- <script type="text/javascript" src="./js/dynamic.js"></script> -->
+            <script type="module" src="./js/dynamic_temperature.js"></script>
           </div>
         </div>
       </div>
