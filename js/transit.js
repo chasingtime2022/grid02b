@@ -1,4 +1,4 @@
-let dynamic = document.getElementById("dynamic");
+let dynamic = document.getElementById("temperature");
 let current = document.getElementById("current");
 
 let n = 5;
