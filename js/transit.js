@@ -1,18 +1,17 @@
 let dynamic = document.getElementById("temperature");
 let current = document.getElementById("current");
+let energy = document.getElementById("energy");
 
-let n = 5;
-let m = n - 1;
+let n = 0;
+
 setInterval(() => {
-  dynamic.style.setProperty("z-index", n);
-  current.style.setProperty("z-index", m);
-  if (n > m) {
-    m = n;
-    n = n - 1;
-  } else {
-    n = m;
-    m = m - 1;
+  dynamic.style.setProperty("z-index", n / 3);
+  current.style.setProperty("z-index", (n + 1) / 3);
+  energy.style.setProperty("z-index", (n + 2) / 3);
+  if (n > 99) {
+    n = 0;
   }
+  n += 1;
 }, 5000);
 
 // let n = "block";
