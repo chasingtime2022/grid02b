@@ -81,21 +81,21 @@
         justify-content: center;
         align-items: center;
       }
-      #temperature {
+      /* #temperature {
         position: absolute;
         background-color: black;
         width: 800px;
         height: 150px;
         z-index: 2;
-      }
-      #current {
+      } */
+      /* #current {
         position: absolute;
         background-color: black;
 
         width: 800px;
         height: 150px;
         z-index: 1;
-      }
+      } */
       #energy {
         position: absolute;
         background-color: black;
@@ -306,7 +306,7 @@
     </script>
     <script type="module" src="./orbit/satellite.js"></script>
     <script src="./js/news_update.js"></script>
-    <script type="module" src="./js/transit.js"></script>
+    <!-- <script type="module" src="./js/transit.js"></script> -->
   </head>
   <body>
     <div class="header">
@@ -346,6 +346,11 @@
             <p id="altitude_value" class="value">520.00</p>
             <p id="altitude_remark" class="remark">千米</p>
           </li>
+          <li id="temperature" class="data">
+            <p class="propety">温度：</p>
+            <p id="temperature_value" class="value">13.00</p>
+            <p id="temperature_remark" class="remark">°C</p>
+          </li>
           <!-- <li id="temperature">温度：-0.14°</li> -->
           <script type="module" src="./js/data_display.js"></script>
         </ul>
@@ -356,16 +361,16 @@
           <div id="info"></div>
         </div>
         <div class="lower">
-          <div id="temperature">
-            <script type="text/javascript" src="./js/echarts.js"></script>
-            <!-- <script type="text/javascript" src="./js/dynamic.js"></script> -->
-            <script type="module" src="./js/dynamic_temperature.js"></script>
-          </div>
-          <div id="current">
-            <!-- <script type="text/javascript" src="./js/echarts.js"></script> -->
-            <!-- <script type="text/javascript" src="./js/dynamic.js"></script> -->
-            <script type="module" src="./js/dynamic_current.js"></script>
-          </div>
+          <!-- <div id="temperature"> -->
+          <script type="text/javascript" src="./js/echarts.js"></script>
+          <!-- <script type="text/javascript" src="./js/dynamic.js"></script> -->
+          <!-- <script type="module" src="./js/dynamic_temperature.js"></script> -->
+          <!-- </div> -->
+          <!-- <div id="current"> -->
+          <!-- <script type="text/javascript" src="./js/echarts.js"></script> -->
+          <!-- <script type="text/javascript" src="./js/dynamic.js"></script> -->
+          <!-- <script type="module" src="./js/dynamic_current.js"></script> -->
+          <!-- </div> -->
           <div id="energy">
             <!-- <script type="text/javascript" src="./js/echarts.js"></script> -->
             <!-- <script type="text/javascript" src="./js/dynamic.js"></script> -->
