@@ -9,25 +9,30 @@ setInterval(function () {
 
   let time = data["time"][n];
   let latitude = data["latitude"][n];
-  let latitude_ew;
+  let latitude_ns;
   if (latitude < 0) {
-    latitude_ew = latitude.toFixed(2) + " 南";
+    latitude_ns = " 南";
   } else {
-    latitude_ew = latitude.toFixed(2) + " 北";
+    latitude_ns = " 北";
   }
   let longitude = data["longitude"][n];
   let longitude_ew;
   if (longitude < 0) {
-    longitude_ew = longitude.toFixed(2) + " 西";
+    longitude_ew = " 西";
   } else {
-    longitude_ew = longitude.toFixed(2) + " 东";
+    longitude_ew = " 东";
   }
-  let altitude = (data["altitude"][n] / 1000).toFixed(2) + " 千米";
+  let altitude = data["altitude"][n] / 1000;
 
-  document.querySelector("#time").innerHTML = "时间: " + date;
-  document.querySelector("#latitude").innerHTML = "纬度: " + latitude_ew;
-  document.querySelector("#longitude").innerHTML = "经度: " + longitude_ew;
-  document.querySelector("#altitude").innerHTML = "高度: " + altitude;
+  document.querySelector("#time_value").innerHTML = date;
+  document.querySelector("#latitude_value").innerHTML = latitude.toFixed(2);
+  document.querySelector("#latitude_remark").innerHTML = latitude_ns;
+
+  document.querySelector("#longitude_value").innerHTML = longitude.toFixed(2);
+  document.querySelector("#longitude_remark").innerHTML = longitude_ew;
+
+  document.querySelector("#altitude_value").innerHTML = altitude.toFixed(2);
+  document.querySelector("#altitude_remark").innerHTML = "千米";
   //   document.querySelector("#news_figure").src = news[n].img_url;
   //   document.querySelector("#news_content").innerHTML = news[n].content;
   //   count += 1;
