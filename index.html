@@ -101,10 +101,28 @@
         /* top: 20px; */
         left: 20px;
         color: greenyellow;
-        line-height: 50px;
+        line-height: 30px;
       }
-      #time {
-        width: 300px;
+      #time_value {
+        width: 200px;
+      }
+      .data {
+        display: flex;
+      }
+      .data .property {
+        /* flex: 1; */
+        width: 100px;
+      }
+      .data .value {
+        /* flex: 1; */
+        text-align: center;
+        background-color: grey;
+        padding: 0 10px;
+        color: black;
+      }
+      .data .remark {
+        /* flex: 1; */
+        padding: 0 10px;
       }
       .side {
         flex: 0 0 400px;
@@ -286,13 +304,29 @@
     <div class="main">
       <div class="realtime">
         <ul>
-          <li id="time" class="data">时间：UTC 08:20:33</li>
+          <li id="time" class="data">
+            <p class="propety">时间：</p>
+            <p id="time_value">
+              Thu Apr 06 2023 10:06:18 GMT+0800 (中国标准时间)
+            </p>
+          </li>
+          <li id="longitude" class="data">
+            <p class="propety">经度：</p>
+            <p id="longitude_value" class="value">108.00</p>
+            <p id="longitude_remark" class="remark">东</p>
+          </li>
+
+          <li id="latitude" class="data">
+            <p class="propety">纬度：</p>
+            <p id="latitude_value" class="value">39.02</p>
+            <p id="latitude_remark" class="remark">北</p>
+          </li>
           <!-- <p></p> -->
-          <li id="longitude" class="data">经度：120°东</li>
-          <!-- <p></p> -->
-          <li id="latitude" class="data">纬度：39°北</li>
-          <!-- <p></p> -->
-          <li id="altitude" class="data">高度：2023千米</li>
+          <li id="altitude" class="data">
+            <p class="propety">高度：</p>
+            <p id="altitude_value" class="value">520.00</p>
+            <p id="altitude_remark" class="remark">千米</p>
+          </li>
           <!-- <li id="temperature">温度：-0.14°</li> -->
           <script type="module" src="./js/data_display.js"></script>
         </ul>
