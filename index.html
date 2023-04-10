@@ -306,7 +306,6 @@
     </script>
     <script type="module" src="./orbit/satellite.js"></script>
     <script src="./js/news_update.js"></script>
-    <script type="module" src="./js/data_display.js"></script>
     <!-- <script type="module" src="./js/transit.js"></script> -->
   </head>
   <body>
@@ -353,12 +352,20 @@
             <p id="temperature_remark" class="remark">°C</p>
           </li>
           <!-- <li id="temperature">温度：-0.14°</li> -->
-          
+          <script type="module" src="./js/data_display.js"></script>
         </ul>
       </div>
       <div id="left" class="left">
         <div id="cosmos">
           <canvas id="c"></canvas>
+          <!-- <iframe
+            width="1410"
+            height="450"
+            src="https://www.n2yo.com/leaflet.php?s=25544&amp;size=small&amp;all=1&amp;me=100"
+            scrolling="no"
+            style="border: none; overflow: hidden"
+          ></iframe> -->
+
           <div id="info"></div>
         </div>
         <div class="lower">
