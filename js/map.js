@@ -12,7 +12,7 @@ let h_bg = map_bg.clientHeight;
 // console.log(map_bg.clientWidth);
 let ctx = map.getContext("2d");
 map.width = w_bg;
-map.height = h_bg;
+map.height = h_bg * 0.8;
 
 // 创建变量
 let s_lon, s_lat, s_alt, x_pos, y_pos;
@@ -99,53 +99,53 @@ let img = new Image();
 // interval
 // console.log(i);
 setInterval(() => {
-  img.src = "../satellite/map.webp";
-  img.onload = function () {
-    // 清除画布
-    ctx.clearRect(0, 0, w * 1.2, h * 1.2);
-    ctx.drawImage(img, 0, 0, w, h);
+  // img.src = "../satellite/map.webp";
+  // img.onload = function () {
+  // 清除画布
+  ctx.clearRect(0, 0, w * 1.2, h * 1.2);
+  // ctx.drawImage(img, 0, 0, w, h);
 
-    // 更新时间
-    // time = new Date();
-    // hour = time.getHours();
-    // minute = time.getMinutes();
-    // head_num = hour * 360 + minute * 6;
+  // 更新时间
+  // time = new Date();
+  // hour = time.getHours();
+  // minute = time.getMinutes();
+  // head_num = hour * 360 + minute * 6;
 
-    // console.log(head_num, show_len, act_len);
+  // console.log(head_num, show_len, act_len);
 
-    // head
-    let x_len = x_data.length;
-    let size_head = 10;
+  // head
+  let x_len = x_data.length;
+  let size_head = 10;
+  ctx.beginPath();
+  ctx.arc(x_data[x_len - 1], y_data[x_len - 1], size_head, 0, Math.PI * 2);
+  ctx.fillStyle = "purple";
+  ctx.fill();
+  ctx.strokeStyle = "blue";
+  ctx.stroke();
+  i;
+  ctx.closePath();
+  // }
+
+  //path
+  let dot_num = 1; // 间距
+  let size_path = 1;
+  let sep_num = size_head / 0.5 / size_path; // 间距
+  // for (let num = 0; num < act_len - 4; num++) { //10s数据更新
+  for (let num = 0; num < x_len - sep_num; num++) {
+    //60s数据更新
     ctx.beginPath();
-    ctx.arc(x_data[x_len - 1], y_data[x_len - 1], size_head, 0, Math.PI * 2);
-    ctx.fillStyle = "purple";
-    ctx.fill();
-    ctx.strokeStyle = "blue";
-    ctx.stroke();
-    i;
-    ctx.closePath();
-    // }
-
-    //path
-    let dot_num = 1; // 间距
-    let size_path = 1;
-    let sep_num = size_head / 0.5 / size_path; // 间距
-    // for (let num = 0; num < act_len - 4; num++) { //10s数据更新
-    for (let num = 0; num < x_len - sep_num; num++) {
-      //60s数据更新
-      ctx.beginPath();
-      if (num % dot_num == 0) {
-        ctx.arc(x_data[num], y_data[num], 1, 0, Math.PI * 2);
-        // console.log(num);
-      }
-
-      ctx.fillStyle = "red";
-      ctx.fill();
-      // ctx.strokeStyle = "black";
-      // ctx.stroke();
-      ctx.closePath();
+    if (num % dot_num == 0) {
+      ctx.arc(x_data[num], y_data[num], 1, 0, Math.PI * 2);
+      // console.log(num);
     }
-  };
+
+    ctx.fillStyle = "red";
+    ctx.fill();
+    // ctx.strokeStyle = "black";
+    // ctx.stroke();
+    ctx.closePath();
+  }
+  // };
   // head_num += 1;
   head_num = now_num();
   // console.log(head_num);
