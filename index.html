@@ -9,6 +9,7 @@
       * {
         /* border: 2px solid red; */
       }
+
       body {
         margin: 0;
         padding: 0;
@@ -57,6 +58,8 @@
       }
       #cosmos {
         height: calc(100% - 200px);
+        z-index: 5;
+        /* background-color: green; */
       }
       #c {
         width: 100%;
@@ -72,6 +75,28 @@
         color: white;
         font-family: monospace;
       } */
+      #map_bg {
+        position: absolute;
+        display: flex;
+        /* top: 20%; */
+        /* left: 20%; */
+        width: calc(100% - 400px);
+        height: calc(100% - 400px);
+        background-color: black;
+        justify-content: center;
+        align-items: center;
+        z-index: 2;
+      }
+      #map {
+        /* border: 2px, solid, blue; */
+        /* position: absolution; */
+        width: 80%;
+        position: absolute;
+        left: 24%;
+        top: 15%;
+        /* height: 400px; */
+        /* background-color: blue; */
+      }
       .lower {
         margin: 0;
         padding: 0;
@@ -80,6 +105,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        z-index: 10;
       }
       /* #temperature {
         position: absolute;
@@ -104,15 +130,17 @@
         height: 150px;
         z-index: 0;
       }
-      .realtime {
+      #realtime {
         position: absolute;
+        /* background-color: black; */
         /* top: 20px; */
         left: 20px;
         color: greenyellow;
         line-height: 30px;
+        z-index: 10;
       }
       #time_value {
-        width: 200px;
+        width: 240px;
       }
       .data {
         display: flex;
@@ -141,7 +169,8 @@
         padding: 20px 20px 0 0;
         justify-content: space-between;
         position: relative;
-        right: 5%;
+        right: 2%;
+        z-index: 10;
         /* overflow: hidden; */
       }
       .card {
@@ -170,7 +199,8 @@
       }
       .card .content {
         color: white;
-        /* font-size: 20px; */
+        line-height: 30px;
+        font-size: 16px;
       }
       #news_figure {
         width: 100%;
@@ -231,11 +261,11 @@
           left: 5px;
           line-height: 30px;
         }
-        #temperature {
+        /* #temperature {
           padding: 0 30px;
           width: 80%;
           height: 150px;
-        }
+        } */
         #current {
           padding: 0 30px;
           width: 80%;
@@ -265,11 +295,11 @@
         .content {
           display: none;
         }
-        #temperature {
+        /* #temperature {
           padding: 0 30px;
           width: 50%;
           height: 150px;
-        }
+        } */
         #current {
           padding: 0 30px;
           width: 50%;
@@ -304,9 +334,6 @@
         }
       }
     </script>
-    <script type="module" src="./orbit/satellite.js"></script>
-    <script src="./js/news_update.js"></script>
-    <!-- <script type="module" src="./js/transit.js"></script> -->
   </head>
   <body>
     <div class="header">
@@ -321,7 +348,7 @@
       <p id="subtitle">空间分布式伽马射线暴探测网</p>
     </div>
     <div class="main">
-      <div class="realtime">
+      <div id="realtime">
         <ul>
           <li id="time" class="data">
             <p class="propety">时间：</p>
@@ -331,24 +358,24 @@
           </li>
           <li id="longitude" class="data">
             <p class="propety">经度：</p>
-            <p id="longitude_value" class="value">108.00</p>
+            <p id="longitude_value" class="value"></p>
             <p id="longitude_remark" class="remark">东</p>
           </li>
 
           <li id="latitude" class="data">
             <p class="propety">纬度：</p>
-            <p id="latitude_value" class="value">39.02</p>
+            <p id="latitude_value" class="value"></p>
             <p id="latitude_remark" class="remark">北</p>
           </li>
           <!-- <p></p> -->
           <li id="altitude" class="data">
             <p class="propety">高度：</p>
-            <p id="altitude_value" class="value">520.00</p>
+            <p id="altitude_value" class="value"></p>
             <p id="altitude_remark" class="remark">千米</p>
           </li>
           <li id="temperature" class="data">
             <p class="propety">温度：</p>
-            <p id="temperature_value" class="value">13.00</p>
+            <p id="temperature_value" class="value"></p>
             <p id="temperature_remark" class="remark">°C</p>
           </li>
           <!-- <li id="temperature">温度：-0.14°</li> -->
@@ -358,16 +385,22 @@
       <div id="left" class="left">
         <div id="cosmos">
           <canvas id="c"></canvas>
-          <!-- <iframe
-            width="1410"
-            height="450"
-            src="https://www.n2yo.com/leaflet.php?s=25544&amp;size=small&amp;all=1&amp;me=100"
-            scrolling="no"
-            style="border: none; overflow: hidden"
-          ></iframe> -->
 
-          <div id="info"></div>
+          <!-- <div id="info"></div> -->
         </div>
+        <script type="module" src="./orbit/satellite.js"></script>
+        <div id="map_bg">
+          <!-- <iframe
+            id="map"
+            src="https://www.n2yo.com/leaflet.php?s=25544&amp;size=large&amp;all=1&amp;me=100"
+            scrolling="no"
+            style="width: 600px; height: 500px; border: none; overflow: hidden"
+          ></iframe> -->
+          <canvas id="map"></canvas>
+          <script type="module" src="./js/map.js"></script>
+          <!-- <script type="module" src="./js/dynamic_lightcurve.js"></script> -->
+        </div>
+        <script type="module" src="./js/transit.js"></script>
         <div class="lower">
           <!-- <div id="temperature"> -->
           <script type="text/javascript" src="./js/echarts.js"></script>
@@ -399,6 +432,7 @@
           <div class="title">天格科普/GRID Science</div>
         </div> -->
       </div>
+      <script src="./js/news_update.js"></script>
     </div>
     <div class="footer">
       <!-- <p id="author">Author: Li Hongxin Sha Fei</p> -->
