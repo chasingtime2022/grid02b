@@ -99,7 +99,7 @@ let img = new Image();
 // interval
 // console.log(i);
 setInterval(() => {
-  img.src = "../satellite/map.webp";
+  img.src = "../satellite/earth.jpg";
   img.onload = function () {
     // 清除画布
     ctx.clearRect(0, 0, w * 1.2, h * 1.2);
