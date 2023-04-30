@@ -74,13 +74,13 @@ function main() {
   solarSystem.add(sunCamera);
 
   // 太阳光照
-  scene.fog = new THREE.FogExp2(0x000000, 0.00000025);
-  const sunLight = new THREE.PointLight(0xffffff);
-  sunLight.position.set(0, 0, 0).normalize();
-  sunLight.intensity = 2;
-  sunLight.castShadow = true;
-  solarSystem.add(sunLight);
-  objects.push(sunLight);
+  // scene.fog = new THREE.FogExp2(0x000000, 0.00000025);
+  // const sunLight = new THREE.PointLight(0xffffff);
+  // sunLight.position.set(0, 0, 0).normalize();
+  // sunLight.intensity = 2;
+  // sunLight.castShadow = true;
+  // solarSystem.add(sunLight);
+  // objects.push(sunLight);
 
   // 地月系统 earthOrbit
   const earthOrbit = new THREE.Object3D();
@@ -128,6 +128,29 @@ function main() {
   // 坐标轴辅助线earth
   // const axes_earth = new THREE.AxesHelper(2);
   // earthMesh.add(axes_earth);
+
+  // noon光照
+  // scene.fog = new THREE.FogExp2(0x000000, 0.00000025);
+  const noonOrbit = new THREE.Object3D();
+  const noonLight = new THREE.PointLight(0xffffff);
+  noonLight.position.set(-50, 0, 0);
+  noonLight.intensity = 2;
+  noonLight.castShadow = true;
+  noonOrbit.add(noonLight);
+  earthMesh.add(noonOrbit);
+  objects.push(noonLight);
+
+  // // 坐标轴辅助线earthOrbit
+  // const axes_noonLight = new THREE.AxesHelper(15);
+  // const axes_noonOrbit = new THREE.AxesHelper(15);
+  // noonOrbit.add(axes_noonLight);
+  // earthMesh.add(axes_noonOrbit);
+
+  // noonLight视角
+  const noonCamera = makeCamera();
+  noonCamera.position.set(0, 0, 0);
+  noonCamera.zoom = 3;
+  noonLight.add(noonCamera);
 
   // 环境光照
   const envLight = new THREE.DirectionalLight(0xffffff, 0.3);
@@ -179,7 +202,7 @@ function main() {
   const gridOrbit = new THREE.Object3D();
   const gridAxis = new THREE.Vector3(1, 0, 0);
   gridOrbit.position.x = 0;
-  const grid_tilt = -(10 / 180) * Math.PI; // 卫星轨道倾角;
+  const grid_tilt = -((90 - 82.568) / 180) * Math.PI; // 卫星轨道倾角; 82.568最高纬度
   // gridOrbit.rotateZ(earth_tilt + grid_tilt);
   gridOrbit.rotation.z = earth_tilt + grid_tilt;
   earthOrbit.add(gridOrbit);
@@ -232,11 +255,15 @@ function main() {
 
   // grid光照
   // scene.fog = new THREE.FogExp2(0x000000, 0.00000025);
+  const grid_lightAgency = new THREE.Object3D();
+  grid_lightAgency.position.set(0, 5, 0);
+
   const gridLight = new THREE.PointLight(0xffffff);
-  gridLight.position.set(0, 8, 0);
+  gridLight.position.set(0, 3, 0);
   gridLight.intensity = 0.1;
   gridLight.castShadow = true;
-  gridAgency.add(gridLight);
+  grid_lightAgency.add(gridLight);
+  gridAgency.add(grid_lightAgency);
   objects.push(gridLight);
 
   // 坐标辅助线gridOrbit
@@ -316,11 +343,12 @@ function main() {
   const cameras = [
     // { cam: cosmosCamera, desc: "Cosmos Camera" },
     { cam: earthCamera, desc: "Earth Camera" },
+    // { cam: noonCamera, desc: "Sunlight Camera" },
     { cam: gridCamera_top, desc: "GRID Satellite Camera" },
     { cam: gridCamera_front, desc: "GRID Satellite Camera" },
     { cam: gridCamera_back, desc: "GRID Satellite Camera" },
     { cam: gridCamera_bottom, desc: "GRID Satellite Camera" },
-    // { cam: moonCamera, desc: "Moon Camera" },
+    // // { cam: moonCamera, desc: "Moon Camera" },
     { cam: sunCamera, desc: "Sun Camera" },
   ];
 
@@ -388,6 +416,7 @@ function main() {
   let hour = now.getHours();
   let min = now.getMinutes();
   let sec = now.getSeconds();
+  let now_sec, noon_offset;
   // let time_now = hour * 3600 + min * 60 + sec;
 
   // latitude_last = 0;
@@ -397,7 +426,12 @@ function main() {
     // console.log(time);
     // let time_1 = time;
     time *= 0.001;
-    // console.log(time);
+    now = new Date();
+    hour = now.getHours();
+    min = now.getMinutes();
+    sec = now.getSeconds();
+    now_sec = hour * 3600 + min * 60 + sec;
+    // console.log(now_sec);
 
     const date = new Date(); // 当前时间
     document.querySelector("#time_value").innerHTML = date;
@@ -438,13 +472,20 @@ function main() {
     // earthMesh.rotation.z = 0.3;
     earthEquator.rotation.y = time * 0.1;
 
+    // noonLight自转
+    noon_offset = 43200 * 2.65;
+    // now_sec = 43200;
+    noonOrbit.rotation.y = ((noon_offset - now_sec) / 86400) * 2 * Math.PI;
+    // noonOrbit.rotation.y = ((now_sec*1.65) / 86400) * 2 * Math.PI;
+
     // earthMesh.rotateOnAxis(rotateAxis, earth_velocity); //每1/60s的进动；
     // earthOrbit.rotation.y = time * 0.5;
     // console.log(1.2 * 10 ** -6);
     // earthMesh.rotateOnAxis(rotateAxis, 0.01);
     let longitude = document.querySelector("#longitude_value").innerHTML;
-    let lon_offset = -1.35;
+    let lon_offset = -1.5; // offset=-1.5
     earthMesh.rotation.y = (longitude / -180) * Math.PI + lon_offset;
+    // earthMesh.rotation.y = (28 / -180) * Math.PI + lon_offset; // -5.6
     // earthMesh.rotation.y = time * 0.5;
 
     // 卫星轨道
@@ -452,7 +493,9 @@ function main() {
     let latitude = document.querySelector("#latitude_value").innerHTML;
     // let altitude = document.querySelector("#altitude_value").innerHTML;
     // gridAgency.rotation.x = time * 0.1;
+    // gridAgency.rotation.x = ((90 - 41) / 180) * Math.PI; // 35.95
     gridAgency.rotation.x = ((90 - latitude) / 180) * Math.PI;
+    // grid_lightAgency.rotation.y = time * 0.2;
     // gridAgency.position.y = altitude / 100;
 
     // gridOrbit.rotation.x = ((90 - latitude) / 180) * Math.PI; // 根据数据估算
@@ -529,6 +572,7 @@ function main() {
     // // look at GRID from moon 月球视角
     earthMesh.getWorldPosition(targetPosition);
     moonCamera.lookAt(targetPosition);
+    noonCamera.lookAt(targetPosition);
 
     // // look at GRID from earth 地球视角
     gridMesh1.getWorldPosition(targetPosition);
