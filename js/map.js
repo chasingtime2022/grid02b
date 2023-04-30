@@ -12,7 +12,7 @@ let h_bg = map_bg.clientHeight;
 // console.log(map_bg.clientWidth);
 let ctx = map.getContext("2d");
 map.width = w_bg;
-map.height = h_bg * 0.8;
+map.height = h_bg;
 
 // 创建变量
 let s_lon, s_lat, s_alt, x_pos, y_pos;
@@ -65,6 +65,7 @@ if (head_num > show_len) {
 // console.log(end_num);
 
 let i;
+let lon_offset = 0; // offset = 5
 // console.log(end_num);
 // for (i = end_num; i < head_num; i++) {
 //   let xx = pos_data["longitude"][i];
@@ -79,7 +80,13 @@ for (i = end_num; i < end_num + act_len; i++) {
   s_lat = pos_data["latitude"][i];
   // console.log(s_lat);
 
-  x_pos = ((s_lon + 180) / 360) * w;
+  if (s_lon > lon_offset - 180) {
+    s_lon = s_lon - lon_offset * 2;
+  } else {
+    s_lon = s_lon + 345;
+  }
+
+  x_pos = ((s_lon + 180) / 360) * w; // offset=15
   y_pos = ((90 - s_lat) / 180) * h;
 
   x_data.push(x_pos);
@@ -156,6 +163,12 @@ setInterval(() => {
   // console.log(s_lon);
   // console.log(s_lat);
   // console.log(s_alt);
+
+  if (s_lon > lon_offset - 180) {
+    s_lon = s_lon - lon_offset * 2;
+  } else {
+    s_lon = s_lon + 345;
+  }
 
   x_pos = ((s_lon + 180) / 360) * w;
   y_pos = ((90 - s_lat) / 180) * h;
