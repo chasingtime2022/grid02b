@@ -298,7 +298,7 @@ function main() {
   // 卫星视角4/底视图
   const gridCamera_bottom = makeCamera();
   gridCamera_bottom.position.set(2, 2, 5);
-  gridCamera_bottom.zoom = 2;
+  gridCamera_bottom.zoom = 1;
   gridAgency.add(gridCamera_bottom);
 
   // 月球轨道
@@ -416,7 +416,14 @@ function main() {
   let hour = now.getHours();
   let min = now.getMinutes();
   let sec = now.getSeconds();
-  let now_sec, noon_offset;
+  let month,
+    day,
+    now_sec,
+    now_day,
+    noon_offset,
+    season_rad,
+    march_day,
+    season_height;
   // let time_now = hour * 3600 + min * 60 + sec;
 
   // latitude_last = 0;
@@ -427,10 +434,17 @@ function main() {
     // let time_1 = time;
     time *= 0.001;
     now = new Date();
+    month = now.getMonth() + 1;
+    day = now.getDate();
     hour = now.getHours();
     min = now.getMinutes();
     sec = now.getSeconds();
     now_sec = hour * 3600 + min * 60 + sec;
+    now_day = month * 30.42 + day;
+    march_day = 3 * 30.42 + 21;
+    season_rad = ((now_day - march_day) / 365) * 2 * Math.PI;
+    season_height =
+      (5 * Math.sin((23.5 / 180) * Math.PI) * Math.sin(season_rad)) / 3;
     // console.log(now_sec);
 
     const date = new Date(); // 当前时间
@@ -476,6 +490,7 @@ function main() {
     noon_offset = 43200 * 2.65;
     // now_sec = 43200;
     noonOrbit.rotation.y = ((noon_offset - now_sec) / 86400) * 2 * Math.PI;
+    noonOrbit.position.y = season_height;
     // noonOrbit.rotation.y = ((now_sec*1.65) / 86400) * 2 * Math.PI;
 
     // earthMesh.rotateOnAxis(rotateAxis, earth_velocity); //每1/60s的进动；
