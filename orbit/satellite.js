@@ -71,6 +71,7 @@ function main() {
   // 太阳视角
   const sunCamera = makeCamera();
   sunCamera.position.set(40, 0, 0);
+  sunCamera.zoom = 5;
   solarSystem.add(sunCamera);
 
   // 太阳光照
@@ -258,13 +259,21 @@ function main() {
   const grid_lightAgency = new THREE.Object3D();
   grid_lightAgency.position.set(0, 5, 0);
 
-  const gridLight = new THREE.PointLight(0xffffff);
-  gridLight.position.set(0, 3, 0);
-  gridLight.intensity = 0.1;
-  gridLight.castShadow = true;
-  grid_lightAgency.add(gridLight);
+  const gridLight_top = new THREE.PointLight(0xffffff);
+  gridLight_top.position.set(0, 3, 0);
+  gridLight_top.intensity = 0.1;
+  gridLight_top.castShadow = true;
+  grid_lightAgency.add(gridLight_top);
   gridAgency.add(grid_lightAgency);
-  objects.push(gridLight);
+  objects.push(gridLight_top);
+
+  const gridLight_bot = new THREE.PointLight(0xffffff);
+  gridLight_bot.position.set(0, -0.5, 0);
+  gridLight_bot.intensity = 0.1;
+  gridLight_bot.castShadow = true;
+  grid_lightAgency.add(gridLight_bot);
+  gridAgency.add(grid_lightAgency);
+  objects.push(gridLight_bot);
 
   // 坐标辅助线gridOrbit
   // const axes_gridLight = new THREE.AxesHelper(8);
