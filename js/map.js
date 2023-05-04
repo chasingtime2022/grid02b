@@ -38,11 +38,11 @@ function now_num() {
 
   if (month == 5) {
     // "=="注意符号
-    head_num = ((day + 1) * 86400 + hour * 3600 + minute * 60 + second) / freq; // 1s数据更新
+    head_num = ((day - 3) * 86400 + hour * 3600 + minute * 60 + second) / freq; // 1s数据更新
   } else {
     if (month == 4) {
       head_num =
-        ((day - 29) * 86400 + hour * 3600 + minute * 60 + second) / freq; // 1s数据更新
+        ((day - 3) * 86400 + hour * 3600 + minute * 60 + second) / freq; // 1s数据更新
     } else {
       console.log("Month Error");
     }
@@ -153,8 +153,8 @@ setInterval(() => {
     ctx.closePath();
   }
   // };
-  // head_num += 1;
-  head_num = now_num();
+  head_num += 1;
+  // head_num = now_num();
   // console.log(head_num);
   s_lon = pos_data["longitude"][head_num];
   s_lat = pos_data["latitude"][head_num];
