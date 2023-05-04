@@ -150,7 +150,7 @@ function main() {
   // noonLight视角
   const noonCamera = makeCamera();
   noonCamera.position.set(0, 0, 0);
-  noonCamera.zoom = 3;
+  noonCamera.zoom = 7;
   noonLight.add(noonCamera);
 
   // 环境光照
@@ -306,9 +306,9 @@ function main() {
 
   // 卫星视角4/底视图
   const gridCamera_bottom = makeCamera();
-  gridCamera_bottom.position.set(2, 2, 5);
+  gridCamera_bottom.position.set(7, 0, 0);
   gridCamera_bottom.zoom = 1;
-  gridAgency.add(gridCamera_bottom);
+  gridOrbit.add(gridCamera_bottom);
 
   // 月球轨道
   const moonOrbit = new THREE.Object3D();
@@ -333,6 +333,7 @@ function main() {
 
   // 月球视角
   const moonCamera = makeCamera();
+  moonCamera.zoom = 2;
   moonMesh.add(moonCamera);
 
   // 自动缩放
@@ -348,18 +349,6 @@ function main() {
   }
 
   const targetPosition = new THREE.Vector3();
-
-  const cameras = [
-    // { cam: cosmosCamera, desc: "Cosmos Camera" },
-    { cam: earthCamera, desc: "Earth Camera" },
-    // { cam: noonCamera, desc: "Sunlight Camera" },
-    { cam: gridCamera_top, desc: "GRID Satellite Camera" },
-    { cam: gridCamera_front, desc: "GRID Satellite Camera" },
-    { cam: gridCamera_back, desc: "GRID Satellite Camera" },
-    { cam: gridCamera_bottom, desc: "GRID Satellite Camera" },
-    // // { cam: moonCamera, desc: "Moon Camera" },
-    { cam: sunCamera, desc: "Sun Camera" },
-  ];
 
   // const infoElem = document.querySelector("#info");
   // 地球标签
@@ -435,8 +424,19 @@ function main() {
     season_height;
   // let time_now = hour * 3600 + min * 60 + sec;
 
-  // latitude_last = 0;
+  let latitude_last = document.querySelector("#latitude_value").innerHTML;
 
+  const cameras = [
+    { cam: cosmosCamera, desc: "Cosmos Camera" },
+    // { cam: earthCamera, desc: "Earth Camera" },
+    // { cam: noonCamera, desc: "Sunlight Camera" },
+    { cam: gridCamera_top, desc: "GRID Satellite Camera" },
+    { cam: gridCamera_front, desc: "GRID Satellite Camera" },
+    { cam: gridCamera_back, desc: "GRID Satellite Camera" },
+    // { cam: gridCamera_bottom, desc: "GRID Satellite Camera" },
+    { cam: moonCamera, desc: "Moon Camera" },
+    { cam: sunCamera, desc: "Sun Camera" },
+  ];
   // render
   function render(time) {
     // console.log(time);
@@ -479,10 +479,10 @@ function main() {
     // solarSystem.rotation.y = time * 1;
     // 地球公转
     n++;
-    let omega = n * 7 * 10 ** -4;
-    // console.log(omega);
-    earthOrbit.position.x = Math.cos(omega) * 50;
-    earthOrbit.position.z = Math.sin(omega) * 50;
+    // let omega = n * 7 * 10 ** -4;
+    // // console.log(omega);
+    // earthOrbit.position.x = Math.cos(omega) * 50;
+    // earthOrbit.position.z = Math.sin(omega) * 50;
 
     // 月球公转
     moonOrbit.rotation.y = time * 0.1;
@@ -493,10 +493,10 @@ function main() {
     // 地球自转
     // earthMesh.rotation.x = (time_now / 86400) * 2 * Math.PI;
     // earthMesh.rotation.z = 0.3;
-    earthEquator.rotation.y = time * 0.1;
+    // earthEquator.rotation.y = time * 0.1;
 
     // noonLight自转
-    noon_offset = 43200 * 2.65;
+    noon_offset = 86400 * 0.35;
     // now_sec = 43200;
     noonOrbit.rotation.y = ((noon_offset - now_sec) / 86400) * 2 * Math.PI;
     noonOrbit.position.y = season_height;
@@ -506,19 +506,44 @@ function main() {
     // earthOrbit.rotation.y = time * 0.5;
     // console.log(1.2 * 10 ** -6);
     // earthMesh.rotateOnAxis(rotateAxis, 0.01);
-    let longitude = document.querySelector("#longitude_value").innerHTML;
-    let lon_offset = -1.5; // offset=-1.5
-    earthMesh.rotation.y = (longitude / -180) * Math.PI + lon_offset;
+    // let longitude = 1;
+    // let longitude = document.querySelector("#longitude_value").innerHTML;
+    // let lon_offset = -1.5; // offset=-1.5
+    let lon_offset = 0; // offset=-1.5
+    // earthMesh.rotation.y = (longitude / -180) * Math.PI + lon_offset;
     // earthMesh.rotation.y = (28 / -180) * Math.PI + lon_offset; // -5.6
-    // earthMesh.rotation.y = time * 0.5;
+    // earthMesh.rotation.y = time * 0.05;
+    earthMesh.rotation.y = (now_sec / 86400) * 2 * Math.PI + lon_offset;
 
     // 卫星轨道
+    // let latitude;
+    // let lat_angular = (time * 10) % 360;
+    // if (lat_angular < 180) {
+    //   latitude = lat_angular - 90;
+    // } else {
+    //   latitude = 270 - lat_angular;
+    // }
 
     let latitude = document.querySelector("#latitude_value").innerHTML;
+    latitude = Number(latitude);
     // let altitude = document.querySelector("#altitude_value").innerHTML;
     // gridAgency.rotation.x = time * 0.1;
     // gridAgency.rotation.x = ((90 - 41) / 180) * Math.PI; // 35.95
-    gridAgency.rotation.x = ((90 - latitude) / 180) * Math.PI;
+    // console.log(latitude, latitude_last);
+    // if (longitude <= 0) {
+    if (latitude < latitude_last) {
+      // console.log(1, latitude, latitude_last);
+      // gridAgency.rotation.x = (2 - (90 - latitude) / 180) * Math.PI;
+      gridAgency.rotation.x = ((90 - (latitude / 82.568) * 90) / 180) * Math.PI;
+    }
+    // if (longitude > 0) {
+    if (latitude > latitude_last) {
+      // console.log(2, latitude, latitude_last);
+      gridAgency.rotation.x =
+        ((90 - (latitude / 82.568) * 90) / -180) * Math.PI;
+      // gridAgency.rotation.x = ((90 - latitude) / 180) * Math.PI;
+    }
+    // gridAgency.rotation.x = Math.PI / -1;
     // grid_lightAgency.rotation.y = time * 0.2;
     // gridAgency.position.y = altitude / 100;
 
@@ -534,7 +559,7 @@ function main() {
     // console.log(latitude);
 
     // longitude_last = longitude_next;
-    // latitude_last = latitude_next;
+    latitude_last = latitude;
     // altitude_last = altitude_next;
 
     // 轨迹
@@ -549,7 +574,7 @@ function main() {
     // gridMesh2.getWorldPosition(pos);
     // gridMesh1.worldToLocal(pos);
 
-    if (count % 100 == 0 && count > 0) {
+    if (count % 600 == 0 && count > 1) {
       if (point_pair.length > 2) {
         point_pair.shift();
       }
@@ -575,7 +600,7 @@ function main() {
     // console.log(count);
     // console.log(earthOrbit.children.length);
     // 限制轨迹长度
-    let line_num = 3600;
+    let line_num = 360;
     if (earthOrbit.children.length > line_num) {
       earthOrbit.remove(earthOrbit.children[line_num]);
     }
