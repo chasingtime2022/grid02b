@@ -153,8 +153,8 @@ setInterval(() => {
     ctx.closePath();
   }
   // };
-  head_num += 1;
-  // head_num = now_num();
+  // head_num += 1;
+  head_num = now_num();
   // console.log(head_num);
   s_lon = pos_data["longitude"][head_num];
   s_lat = pos_data["latitude"][head_num];
